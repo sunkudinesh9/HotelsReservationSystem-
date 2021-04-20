@@ -1,5 +1,5 @@
 package com.epam.guestservice.controller;
 
-public class GuestServiceController {
+public class GuestServiceController implements GuestServiceControllerInterface {
 
 }
