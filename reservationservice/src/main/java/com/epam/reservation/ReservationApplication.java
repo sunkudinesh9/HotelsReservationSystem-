@@ -1,13 +1,13 @@
-package com.epam.reservationservice;
+package com.epam.reservation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ReservationserviceApplication {
+public class ReservationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReservationserviceApplication.class, args);
+		SpringApplication.run(ReservationApplication.class, args);
 	}
 
 }
