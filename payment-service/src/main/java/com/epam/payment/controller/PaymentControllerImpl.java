@@ -1,4 +1,4 @@
-package com.epam.paymentservice.controller;
+package com.epam.payment.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-public class PaymentServiceController implements PaymentServiceControllerInterface {
+public class PaymentControllerImpl implements PaymentController {
 
 	@Override
 	public String addPayment() {

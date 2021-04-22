@@ -1,4 +1,4 @@
-package com.epam.paymentservice.entity;
+package com.epam.payment.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
