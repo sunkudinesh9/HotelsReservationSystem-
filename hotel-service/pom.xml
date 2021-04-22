@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.epam.hotelservice</groupId>
-	<artifactId>HotelService</artifactId>
+	<artifactId>hotel-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>HotelService</name>
 	<description>This Micro service will the Hotel service end points </description>
