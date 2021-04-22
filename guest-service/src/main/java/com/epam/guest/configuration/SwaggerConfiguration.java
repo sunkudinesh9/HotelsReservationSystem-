@@ -1,4 +1,4 @@
-package com.epam.guestservice.configuration;
+package com.epam.guest.configuration;
 
 import java.util.ArrayList;
 

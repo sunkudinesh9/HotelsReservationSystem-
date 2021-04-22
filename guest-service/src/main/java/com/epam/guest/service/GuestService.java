@@ -1,15 +1,15 @@
-package com.epam.guestservice.service;
+package com.epam.guest.service;
 
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.epam.guestservice.model.User;
+import com.epam.guest.model.User;
 
 
 @Service
-public class GuestServiceClass {
+public class GuestService {
 
 	public User addUser(User user) {
 		return user;

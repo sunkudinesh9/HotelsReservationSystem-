@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.epam</groupId>
-	<artifactId>guestservice</artifactId>
+	<artifactId>guest-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>guestservice</name>
 	<description>This Micro service will have the Guest service end points </description>

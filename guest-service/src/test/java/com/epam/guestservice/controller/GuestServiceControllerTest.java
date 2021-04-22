@@ -15,8 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.epam.guestservice.model.User;
-import com.epam.guestservice.service.GuestServiceClass;
+import com.epam.guest.model.User;
+import com.epam.guest.service.GuestService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
@@ -29,7 +29,7 @@ class GuestServiceControllerTest {
 	private ObjectMapper objectMapper;
 
 	@MockBean
-	private GuestServiceClass guestServiceClass;
+	private GuestService guestServiceClass;
 
 	@Test
 	void addUserTest() throws Exception {

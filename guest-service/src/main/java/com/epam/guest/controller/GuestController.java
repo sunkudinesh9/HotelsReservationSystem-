@@ -1,4 +1,4 @@
-package com.epam.guestservice.controller;
+package com.epam.guest.controller;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.epam.guestservice.model.User;
+import com.epam.guest.model.User;
 
 
 @RequestMapping("/v1/api")
-public interface GuestServiceControllerInterface {
+public interface GuestController {
 	@PostMapping("/users")
 	public User addUser(@RequestBody User user);
 

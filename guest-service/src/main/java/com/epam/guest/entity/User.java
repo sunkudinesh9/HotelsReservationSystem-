@@ -1,4 +1,4 @@
-package com.epam.guestservice.entity;
+package com.epam.guest.entity;
 
 import java.util.List;
 

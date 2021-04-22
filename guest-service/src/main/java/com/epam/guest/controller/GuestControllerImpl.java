@@ -1,21 +1,21 @@
-package com.epam.guestservice.controller;
+package com.epam.guest.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epam.guestservice.model.User;
-import com.epam.guestservice.service.GuestServiceClass;
+import com.epam.guest.model.User;
+import com.epam.guest.service.GuestService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-public class GuestServiceController implements GuestServiceControllerInterface {
+public class GuestControllerImpl implements GuestController {
 
 	@Autowired
-	private GuestServiceClass guestServiceClass;
+	private GuestService guestServiceClass;
 
 	@Override
 	public User addUser(User user) {
