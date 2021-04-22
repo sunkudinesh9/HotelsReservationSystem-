@@ -1,8 +1,7 @@
-package com.epam.guestservice.entity;
+package com.epam.hotelservice.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,23 +17,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "USER_DETAILS")
+@Table(name = "HOTEL")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Hotel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@Column(name = "STATUS")
-	private String status;
-	@Column(name = "ACTIVE")
-	private Boolean active;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "PROFILE_ID")
-	private Profile profile;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-	private List<CreditCard> creditCard;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-	private List<StayHistory> stayHistory;
+	@Column(name = "HOTEL_NAME")
+	private String hotelName;
+	@OneToOne
+	@JoinColumn(name = "HOTEL_ADDRESS_ID")
+	private HotelAddress hotelAddress;
+	@Column(name = "IS_ACTIVE")
+	private Boolean isActive;
+	@OneToMany(mappedBy = "hotel")
+	private List<Room> room;
 }
