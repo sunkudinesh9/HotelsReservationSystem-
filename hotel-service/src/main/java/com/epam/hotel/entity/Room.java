@@ -1,4 +1,4 @@
-package com.epam.hotelservice.entity;
+package com.epam.hotel.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

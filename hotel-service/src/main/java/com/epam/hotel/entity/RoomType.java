@@ -1,15 +1,10 @@
-package com.epam.hotelservice.entity;
-
-import java.util.List;
+package com.epam.hotel.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -17,21 +12,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "HOTEL")
+@Table(name = "ROOM_TYPE")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Hotel {
+public class RoomType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@Column(name = "HOTEL_NAME")
-	private String hotelName;
-	@OneToOne
-	@JoinColumn(name = "HOTEL_ADDRESS_ID")
-	private HotelAddress hotelAddress;
+	@Column(name = "ROOM_TYPE")
+	private String roomName;
+	@Column(name = "RENT_PER_DAY")
+	private float rentPerDay;
+	@Column(name = "ROOM_CAPACITY")
+	private int roomCapacity;
 	@Column(name = "IS_ACTIVE")
-	private Boolean isActive;
-	@OneToMany(mappedBy = "hotel")
-	private List<Room> room;
+	private boolean isActive;
 }

@@ -1,4 +1,4 @@
-package com.epam.hotelservice.repository;
+package com.epam.hotel.repository;
 
 public interface HotelServiceRepository {
 
