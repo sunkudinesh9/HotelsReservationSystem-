@@ -37,5 +37,4 @@ public class User {
 	private List<CreditCard> creditCard;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<StayHistory> stayHistory;
-
 }
