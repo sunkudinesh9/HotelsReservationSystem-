@@ -1,5 +1,5 @@
-package com.epam.reservationservice.repository;
+package com.epam.reservation.repository;
 
-public interface ReservationServiceRepository {
+public interface ReservationRepository {
 
 }

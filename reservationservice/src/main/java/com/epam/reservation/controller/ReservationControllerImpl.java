@@ -1,4 +1,4 @@
-package com.epam.reservationservice.controller;
+package com.epam.reservation.controller;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-public class ReservationServiceController implements ReservationServiceControllerInterface {
+public class ReservationControllerImpl implements ReservationController {
 	
 	@Override
 	public String addReservation() {

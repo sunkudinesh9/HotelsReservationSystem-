@@ -1,4 +1,4 @@
-package com.epam.reservationservice.entity;
+package com.epam.reservation.entity;
 
 import java.sql.Date;
 

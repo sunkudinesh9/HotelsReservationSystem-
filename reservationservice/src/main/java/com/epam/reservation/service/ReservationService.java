@@ -1,5 +1,5 @@
-package com.epam.reservationservice.service;
+package com.epam.reservation.service;
 
-public class ReservationServiceClass {
+public class ReservationService {
 
 }
