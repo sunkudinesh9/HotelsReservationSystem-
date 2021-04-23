@@ -3,6 +3,8 @@ package com.epam.guest.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epam.guest.model.User;
@@ -18,28 +20,30 @@ public class GuestControllerImpl implements GuestController {
 	private GuestService guestServiceClass;
 
 	@Override
-	public User addUser(User user) {
+	public ResponseEntity<com.epam.guest.entity.User> addUser(User user) {
 		log.info("Adding the user");
-		return guestServiceClass.addUser(user);
+		com.epam.guest.entity.User userData = guestServiceClass.addUser(user);
+		return new ResponseEntity<>(userData, HttpStatus.CREATED);
 	}
 
 	@Override
-	public List<User> getUsers() {
+	public List<com.epam.guest.entity.User> getUsers() {
 		return guestServiceClass.getUsers();
 	}
 
 	@Override
-	public User getUserById(int userid) {
-		return guestServiceClass.getUserById(userid);
+	public ResponseEntity<com.epam.guest.entity.User> getUserById(int userid) {
+		com.epam.guest.entity.User userData = guestServiceClass.getUserById(userid);
+		return new ResponseEntity<>(userData, HttpStatus.OK);
 	}
 
 	@Override
-	public String updateUser(User user, int userId) {
-		return guestServiceClass.updateUser(user, userId);
+	public String updateUser(User user, int userid) {
+		return guestServiceClass.updateUser(user, userid);
 	}
 
 	@Override
-	public String deleteUser(int userId) {
-		return guestServiceClass.deleteUser(userId);
+	public String deleteUserById(int userid) {
+		return guestServiceClass.deleteUser(userid);
 	}
 }

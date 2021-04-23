@@ -8,10 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreditCard {
-	private int id;
 	private long cardNumber;
 	private String expairDate;
 	private String cadrHolderName;
 	private String cardType;
-	private User user;
 }

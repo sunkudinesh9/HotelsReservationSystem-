@@ -2,6 +2,7 @@ package com.epam.guest.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,21 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.epam.guest.model.User;
 
-
 @RequestMapping("/v1/api")
 public interface GuestController {
 	@PostMapping("/users")
-	public User addUser(@RequestBody User user);
+	public ResponseEntity<com.epam.guest.entity.User> addUser(@RequestBody User user);
 
 	@GetMapping("/users")
-	public List<User> getUsers();
+	public List<com.epam.guest.entity.User> getUsers();
 
 	@GetMapping("/users/{userid}")
-	public User getUserById(@PathVariable int userid);
+	public ResponseEntity<com.epam.guest.entity.User> getUserById(@PathVariable int userid);
 
 	@PutMapping("/users/{userid}")
-	public String updateUser(@RequestBody User user, @PathVariable int userId);
+	public String updateUser(@RequestBody User user, @PathVariable int userid);
 
 	@DeleteMapping("/users/{userid}")
-	public String deleteUser(@PathVariable int userId);
+	public String deleteUserById(@PathVariable int userid);
 }
