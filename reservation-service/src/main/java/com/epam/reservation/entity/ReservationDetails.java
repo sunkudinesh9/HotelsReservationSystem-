@@ -37,7 +37,7 @@ public class ReservationDetails {
 	@Column(name = "BOOKING_STATUS")
 	private String bookingStatus;
 	@Column(name = "PAYMENT_ID")
-	private float paymentId;
+	private long paymentId;
 	@Column(name = "IS_ACTIVE")
 	private boolean isActive;
 
