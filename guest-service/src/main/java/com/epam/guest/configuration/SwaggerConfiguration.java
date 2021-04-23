@@ -17,7 +17,7 @@ public class SwaggerConfiguration {
 	@Bean
 	public Docket guestServiceApiDock() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.epam.guestservice")).build();
+				.apis(RequestHandlerSelectors.basePackage("com.epam.guest")).build();
 	}
 	
 	private ApiInfo metaData() {

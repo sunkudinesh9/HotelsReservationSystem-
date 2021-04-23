@@ -2,18 +2,13 @@ package com.epam.guest.model;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 public class User {
-	private int id;
-	private String status;
-	private Boolean active;
+	private Boolean status;
 	private Profile profile;
 	private List<CreditCard> creditCard;
-	private List<StayHistory> stayHistory;
 }

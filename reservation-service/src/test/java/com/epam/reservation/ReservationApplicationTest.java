@@ -11,12 +11,9 @@ import com.epam.reservation.entity.ReservationDetails;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class ReservationApplicationTest {
-
-	TestRestTemplate restTemplate = new TestRestTemplate();
 	
 	@Test
 	void contextLoads() {
-		restTemplate.getForEntity("/v1/api/reservations/1", String.class);
 	}
 
 }
