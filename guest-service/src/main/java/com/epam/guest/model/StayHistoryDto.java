@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StayHistory {
+public class StayHistoryDto {
 	private int reservationID;
-	private User user;
+	private UserDto userDto;
 }

@@ -16,11 +16,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.epam.guest.model.CreditCard;
-import com.epam.guest.model.Profile;
-import com.epam.guest.model.User;
+import com.epam.guest.entity.User;
+import com.epam.guest.model.CreditCardDto;
+import com.epam.guest.model.ProfileDto;
+import com.epam.guest.model.UserDto;
 import com.epam.guest.repository.GuestRepository;
-import com.epam.guest.utility.MarshelUtility;
+import com.epam.guest.utility.UserUtility;
 
 class GuestServiceTest {
 
@@ -30,69 +31,70 @@ class GuestServiceTest {
 	@InjectMocks
 	private GuestService guestService;
 
-	private MarshelUtility marshelUtility;
+	private UserUtility userUtility;
 
 	@BeforeEach
 	void setup() {
 		MockitoAnnotations.openMocks(this);
-		marshelUtility = new MarshelUtility();
+		userUtility = new UserUtility();
 	}
 
 	@Test
 	void addUserTest() {
-		User user = new User();
-		user.setStatus(true);
+		UserDto userDto = new UserDto();
+		userDto.setStatus(true);
 
-		List<CreditCard> listOdCrediCards = new ArrayList<>();
-		listOdCrediCards.add(new CreditCard(1234567890L, "12/23", "Dinesh", "Visa"));
-		user.setCreditCard(listOdCrediCards);
-		user.setProfile(new Profile());
-		com.epam.guest.entity.User userEntityData = marshelUtility.convertUser(user);
-		Mockito.when(guestRepository.save(userEntityData)).thenReturn(userEntityData);
-		com.epam.guest.entity.User userEntity = guestService.addUser(user);
+		List<CreditCardDto> creditCards = new ArrayList<>();
+		creditCards.add(new CreditCardDto(1234567890L, "12/23", "Dinesh", "Visa"));
+		userDto.setCreditCardDto(creditCards);
+		userDto.setProfileDto(new ProfileDto());
+		User user = userUtility.convertUserDtoToUser(userDto);
+		Mockito.when(guestRepository.save(user)).thenReturn(user);
+		User userEntity = guestService.addUser(userDto);
 
 		Assertions.assertAll(() -> assertNotNull(userEntity),
-				() -> assertEquals(userEntity.getStatus(), user.getStatus()));
+				() -> assertEquals(userEntity.getStatus(), userDto.getStatus()));
 
 	}
 
 	@Test
 	void getUsersTest() {
-		User user = new User();
-		user.setStatus(true);
+		UserDto userDto = new UserDto();
+		userDto.setStatus(true);
 
-		List<CreditCard> listOdCrediCards = new ArrayList<>();
-		listOdCrediCards.add(new CreditCard(1234567890L, "12/23", "Dinesh", "Visa"));
-		user.setCreditCard(listOdCrediCards);
-		user.setProfile(new Profile());
+		List<CreditCardDto> creditCards = new ArrayList<>();
+		creditCards.add(new CreditCardDto(1234567890L, "12/23", "Dinesh", "Visa"));
+		userDto.setCreditCardDto(creditCards);
+		userDto.setProfileDto(new ProfileDto());
 
-		List<com.epam.guest.entity.User> listOfUsersData = new ArrayList<>();
-		listOfUsersData.add(marshelUtility.convertUser(user));
+		List<User> users = new ArrayList<>();
+		users.add(userUtility.convertUserDtoToUser(userDto));
 
-		Mockito.when(guestService.getUsers()).thenReturn(listOfUsersData);
-		List<com.epam.guest.entity.User> listOfUsers = guestService.getUsers();
-		Assertions.assertNotNull(listOfUsers);
-		Assertions.assertTrue(listOfUsers.size() > 0);
+		Mockito.when(guestRepository.findAll()).thenReturn(users);
+		
+		List<User> actualUsers = guestService.getUsers();
+		Assertions.assertNotNull(actualUsers);
+		Assertions.assertTrue(actualUsers.size() > 0);
 
 	}
 
 	@Test
 	void getUserById() {
-		User user = new User();
-		user.setStatus(true);
+		UserDto userDto = new UserDto();
+		userDto.setStatus(true);
 
-		List<CreditCard> listOdCrediCards = new ArrayList<>();
-		listOdCrediCards.add(new CreditCard(1234567890L, "12/23", "Dinesh", "Visa"));
-		user.setCreditCard(listOdCrediCards);
-		user.setProfile(new Profile());
-		com.epam.guest.entity.User userEntityData = marshelUtility.convertUser(user);
-		Optional<com.epam.guest.entity.User> optionalUserEntityData = Optional.of(userEntityData);
-		Mockito.when(guestRepository.findById(ArgumentMatchers.anyInt())).thenReturn(optionalUserEntityData);
+		List<CreditCardDto> creditCards = new ArrayList<>();
+		creditCards.add(new CreditCardDto(1234567890L, "12/23", "Dinesh", "Visa"));
+		userDto.setCreditCardDto(creditCards);
+		userDto.setProfileDto(new ProfileDto());
+		User user = userUtility.convertUserDtoToUser(userDto);
+		Optional<User> optionalUser = Optional.of(user);
+		Mockito.when(guestRepository.findById(ArgumentMatchers.anyInt())).thenReturn(optionalUser);
 
-		com.epam.guest.entity.User userEntity = guestService.getUserById(1);
+		User userEntity = guestService.getUserById(1);
 
 		Assertions.assertAll(() -> assertNotNull(userEntity),
-				() -> assertEquals(userEntity.getStatus(), user.getStatus()));
+				() -> assertEquals(userEntity.getStatus(), userDto.getStatus()));
 	}
 
 }
