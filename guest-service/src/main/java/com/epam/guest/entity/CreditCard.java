@@ -30,10 +30,10 @@ public class CreditCard {
 	private long cardNumber;
 	@NotNull
 	@Column(name = "EXPAIR_DATE")
-	private String expairDate;
+	private String expiryDate;
 	@NotNull
 	@Column(name = "CARD_HOLDER_NAME")
-	private String cadrHolderName;
+	private String cardHolder;
 	@NotNull
 	@Column(name = "CARD_TYPE")
 	private String cardType;

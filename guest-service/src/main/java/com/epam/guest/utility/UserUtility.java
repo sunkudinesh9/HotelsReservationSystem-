@@ -19,10 +19,10 @@ public class UserUtility {
 		for (int i = 0; i < userDto.getCreditCardDto().size(); i++) {
 			CreditCard creditcard = new CreditCard();
 			CreditCardDto creditCardDto = userDto.getCreditCardDto().get(i);
-			creditcard.setCadrHolderName(creditCardDto.getCardHolder());
+			creditcard.setCardHolder(creditCardDto.getCardHolder());
 			creditcard.setCardNumber(creditCardDto.getCardNumber());
 			creditcard.setCardType(creditCardDto.getCardType());
-			creditcard.setExpairDate(creditCardDto.getExpiryDate());
+			creditcard.setExpiryDate(creditCardDto.getExpiryDate());
 			creditcard.setUser(user);
 			creditCards.add(creditcard);
 		}
