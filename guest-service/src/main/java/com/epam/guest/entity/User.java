@@ -16,8 +16,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.internal.util.stereotypes.Lazy;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,7 +37,7 @@ public class User {
 	@JoinColumn(name = "PROFILE_ID")
 	private Profile profile;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-	private List<CreditCard> creditCard = new ArrayList<>();;
+	private List<CreditCard> creditCard = new ArrayList<>();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<StayHistory> stayHistory = new ArrayList<>();
 }

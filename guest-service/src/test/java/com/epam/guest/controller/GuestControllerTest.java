@@ -17,9 +17,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.epam.guest.model.User;
+import com.epam.guest.entity.User;
+import com.epam.guest.model.ProfileDto;
+import com.epam.guest.model.UserDto;
 import com.epam.guest.service.GuestService;
-import com.epam.guest.utility.MarshelUtility;
+import com.epam.guest.utility.UserUtility;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -31,37 +33,41 @@ class GuestControllerTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	private MarshelUtility marshelUtility;
+	private UserUtility userUtility;
 
 	@MockBean
 	private GuestService guestServiceClass;
 
 	@BeforeEach
 	void beforeEach() {
-		marshelUtility = new MarshelUtility();
+		userUtility = new UserUtility();
 	}
 
 	@Test
 	void addUserTest() throws Exception {
-		User user = new User();
-		user.setStatus(true);
+		UserDto userDto = new UserDto();
+		userDto.setStatus(true);
+		userDto.setCreditCardDto(new ArrayList<>());
+		userDto.setProfileDto(new ProfileDto());
 
-		String uerData = objectMapper.writeValueAsString(user);
+		String userDtoJson = objectMapper.writeValueAsString(userDto);
 
-		Mockito.when(guestServiceClass.addUser(user)).thenReturn(marshelUtility.convertUser(user));
+		Mockito.when(guestServiceClass.addUser(userDto)).thenReturn(userUtility.convertUserDtoToUser(userDto));
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/v1/api/users").contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(uerData)).andExpect(MockMvcResultMatchers.status().isOk());
+				.content(userDtoJson)).andExpect(MockMvcResultMatchers.status().isCreated());
 	}
 
 	@Test
 	void getUserByIdTest() throws Exception {
 
-		User user = new User();
-		user.setStatus(true);
+		UserDto userDto = new UserDto();
+		userDto.setStatus(true);
+		userDto.setCreditCardDto(new ArrayList<>());
+		userDto.setProfileDto(new ProfileDto());
 
 		Mockito.when(guestServiceClass.getUserById(ArgumentMatchers.anyInt()))
-				.thenReturn(marshelUtility.convertUser(user));
+				.thenReturn(userUtility.convertUserDtoToUser(userDto));
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/v1/api/users/1")).andExpect(MockMvcResultMatchers.status().isOk());
 	}
@@ -69,13 +75,15 @@ class GuestControllerTest {
 	@Test
 	void getUserTest() throws Exception {
 
-		User user = new User();
-		user.setStatus(true);
+		UserDto userDto = new UserDto();
+		userDto.setStatus(true);
+		userDto.setCreditCardDto(new ArrayList<>());
+		userDto.setProfileDto(new ProfileDto());
 
-		List<com.epam.guest.entity.User> listOfUsers = new ArrayList<>();
-		listOfUsers.add(marshelUtility.convertUser(user));
+		List<User> users = new ArrayList<>();
+		users.add(userUtility.convertUserDtoToUser(userDto));
 
-		Mockito.when(guestServiceClass.getUsers()).thenReturn(listOfUsers);
+		Mockito.when(guestServiceClass.getUsers()).thenReturn(users);
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/v1/api/users")).andExpect(MockMvcResultMatchers.status().isOk());
 	}
@@ -83,15 +91,15 @@ class GuestControllerTest {
 	@Test
 	void updateUserTest() throws Exception {
 
-		User user = new User();
-		user.setStatus(true);
-		String uerData = objectMapper.writeValueAsString(user);
+		UserDto userDto = new UserDto();
+		userDto.setStatus(true);
+		String userDtoJson = objectMapper.writeValueAsString(userDto);
 
-		Mockito.when(guestServiceClass.updateUser(ArgumentMatchers.any(User.class), ArgumentMatchers.anyInt()))
+		Mockito.when(guestServiceClass.updateUser(ArgumentMatchers.any(UserDto.class), ArgumentMatchers.anyInt()))
 				.thenReturn("Dinesh");
 
 		mockMvc.perform(
-				MockMvcRequestBuilders.put("/v1/api/users/1").contentType(MediaType.APPLICATION_JSON).content(uerData))
+				MockMvcRequestBuilders.put("/v1/api/users/1").contentType(MediaType.APPLICATION_JSON).content(userDtoJson))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
