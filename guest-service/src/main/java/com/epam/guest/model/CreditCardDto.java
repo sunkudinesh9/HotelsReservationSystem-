@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreditCard {
+public class CreditCardDto {
 	private long cardNumber;
-	private String expairDate;
-	private String cadrHolderName;
+	private String expiryDate;
+	private String cardHolder;
 	private String cardType;
 }

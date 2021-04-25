@@ -7,8 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class User {
+public class UserDto {
 	private Boolean status;
-	private Profile profile;
-	private List<CreditCard> creditCard;
+	private ProfileDto profileDto;
+	private List<CreditCardDto> creditCardDto;
 }

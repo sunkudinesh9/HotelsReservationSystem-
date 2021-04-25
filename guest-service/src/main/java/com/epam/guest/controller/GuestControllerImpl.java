@@ -7,7 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epam.guest.model.User;
+import com.epam.guest.entity.User;
+import com.epam.guest.model.UserDto;
 import com.epam.guest.service.GuestService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,33 +18,33 @@ import lombok.extern.slf4j.Slf4j;
 public class GuestControllerImpl implements GuestController {
 
 	@Autowired
-	private GuestService guestServiceClass;
+	private GuestService guestService;
 
 	@Override
-	public ResponseEntity<com.epam.guest.entity.User> addUser(User user) {
+	public ResponseEntity<User> addUser(UserDto userDto) {
 		log.info("Adding the user");
-		com.epam.guest.entity.User userData = guestServiceClass.addUser(user);
-		return new ResponseEntity<>(userData, HttpStatus.CREATED);
+		User user = guestService.addUser(userDto);
+		return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
 
 	@Override
-	public List<com.epam.guest.entity.User> getUsers() {
-		return guestServiceClass.getUsers();
+	public List<User> getUsers() {
+		return guestService.getUsers();
 	}
 
 	@Override
-	public ResponseEntity<com.epam.guest.entity.User> getUserById(int userid) {
-		com.epam.guest.entity.User userData = guestServiceClass.getUserById(userid);
-		return new ResponseEntity<>(userData, HttpStatus.OK);
+	public ResponseEntity<User> getUserById(int userid) {
+		User user = guestService.getUserById(userid);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 	@Override
-	public String updateUser(User user, int userid) {
-		return guestServiceClass.updateUser(user, userid);
+	public String updateUser(UserDto userDto, int userid) {
+		return guestService.updateUser(userDto, userid);
 	}
 
 	@Override
 	public String deleteUserById(int userid) {
-		return guestServiceClass.deleteUser(userid);
+		return guestService.deleteUser(userid);
 	}
 }
