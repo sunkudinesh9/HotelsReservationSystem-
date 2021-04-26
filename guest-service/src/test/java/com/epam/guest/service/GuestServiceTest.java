@@ -9,6 +9,8 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
@@ -17,6 +19,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.epam.guest.entity.User;
+import com.epam.guest.exception.GuestNotFoundException;
 import com.epam.guest.model.CreditCardDto;
 import com.epam.guest.model.ProfileDto;
 import com.epam.guest.model.UserDto;
@@ -32,23 +35,26 @@ class GuestServiceTest {
 	private GuestService guestService;
 
 	private UserUtility userUtility;
+	private User user;
+	private UserDto userDto;
 
 	@BeforeEach
 	void setup() {
 		MockitoAnnotations.openMocks(this);
 		userUtility = new UserUtility();
-	}
-
-	@Test
-	void addUserTest() {
-		UserDto userDto = new UserDto();
+		userDto = new UserDto();
 		userDto.setStatus(true);
 
 		List<CreditCardDto> creditCards = new ArrayList<>();
 		creditCards.add(new CreditCardDto(1234567890L, "12/23", "Dinesh", "Visa"));
 		userDto.setCreditCardDto(creditCards);
 		userDto.setProfileDto(new ProfileDto());
-		User user = userUtility.convertUserDtoToUser(userDto);
+		user = userUtility.convertUserDtoToUser(userDto);
+
+	}
+
+	@Test
+	void addUserTest() {
 		Mockito.when(guestRepository.save(user)).thenReturn(user);
 		User userEntity = guestService.addUser(userDto);
 
@@ -70,8 +76,8 @@ class GuestServiceTest {
 		List<User> users = new ArrayList<>();
 		users.add(userUtility.convertUserDtoToUser(userDto));
 
-		Mockito.when(guestRepository.findAll()).thenReturn(users);
-		
+		Mockito.when(guestRepository.findByStatus(true)).thenReturn(users);
+
 		List<User> actualUsers = guestService.getUsers();
 		Assertions.assertNotNull(actualUsers);
 		Assertions.assertTrue(actualUsers.size() > 0);
@@ -80,21 +86,45 @@ class GuestServiceTest {
 
 	@Test
 	void getUserById() {
-		UserDto userDto = new UserDto();
-		userDto.setStatus(true);
-
-		List<CreditCardDto> creditCards = new ArrayList<>();
-		creditCards.add(new CreditCardDto(1234567890L, "12/23", "Dinesh", "Visa"));
-		userDto.setCreditCardDto(creditCards);
-		userDto.setProfileDto(new ProfileDto());
 		User user = userUtility.convertUserDtoToUser(userDto);
 		Optional<User> optionalUser = Optional.of(user);
 		Mockito.when(guestRepository.findById(ArgumentMatchers.anyInt())).thenReturn(optionalUser);
 
-		User userEntity = guestService.getUserById(1);
+		User actualUser = guestService.getUserById(1);
 
-		Assertions.assertAll(() -> assertNotNull(userEntity),
-				() -> assertEquals(userEntity.getStatus(), userDto.getStatus()));
+		Assertions.assertAll(() -> assertNotNull(actualUser),
+				() -> assertEquals(actualUser.getStatus(), userDto.getStatus()));
+	}
+
+	@Nested
+	@DisplayName("Updated user test case")
+	class UpdateUserTest {
+		@Test
+		void updateUserTest() {
+			Optional<User> optionalUser = Optional.of(user);
+			Mockito.when(guestRepository.findById(ArgumentMatchers.anyInt())).thenReturn(optionalUser);
+
+			User userEntity = guestService.getUserById(1);
+			userEntity.getProfile().setMobileNumber(8667688686L);
+			Mockito.when(guestRepository.save(userEntity)).thenReturn(userEntity);
+
+			User actualUser = guestService.updateUser(userDto, 1);
+			Assertions.assertEquals(userEntity.getProfile().getMobileNumber(),
+					actualUser.getProfile().getMobileNumber());
+		}
+
+		@Test
+		void guestNotFoundException() {
+
+			Optional<User> optionalUser = Optional.of(user);
+			Mockito.when(guestRepository.findById(1)).thenReturn(optionalUser);
+
+			User userEntity = guestService.getUserById(1);
+			userEntity.getProfile().setMobileNumber(8667688686L);
+			Mockito.when(guestRepository.save(userEntity)).thenReturn(userEntity);
+
+			Assertions.assertThrows(GuestNotFoundException.class, () -> guestService.getUserById(100));
+		}
 	}
 
 }

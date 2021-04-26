@@ -22,6 +22,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.TeeOutputStream;
 import org.springframework.stereotype.Component;
 
+import com.epam.guest.exception.InvalidPayloadException;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -57,7 +59,7 @@ class MyCustomHttpRequestMapper extends HttpServletRequestWrapper {
 		try {
 			byteArray = IOUtils.toByteArray(request.getInputStream());
 		} catch (IOException e) {
-			throw new RuntimeException("Issue while reading request stream");
+			throw new InvalidPayloadException("Issue while reading request stream");
 		}
 	}
 

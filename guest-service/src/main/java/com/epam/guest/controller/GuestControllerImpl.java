@@ -39,8 +39,9 @@ public class GuestControllerImpl implements GuestController {
 	}
 
 	@Override
-	public String updateUser(UserDto userDto, int userid) {
-		return guestService.updateUser(userDto, userid);
+	public ResponseEntity<User> updateUser(UserDto userDto, int userid) {
+		User user = guestService.updateUser(userDto, userid);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 	@Override

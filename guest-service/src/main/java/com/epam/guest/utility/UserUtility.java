@@ -26,7 +26,7 @@ public class UserUtility {
 			creditcard.setUser(user);
 			creditCards.add(creditcard);
 		}
-		user.setCreditCard(creditCards);
+		user.setCreditCards(creditCards);
 		user.setStatus(userDto.getStatus());
 
 		// Converting from model profile object to entity profile object

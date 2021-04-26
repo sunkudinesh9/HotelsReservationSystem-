@@ -26,7 +26,7 @@ public interface GuestController {
 	public ResponseEntity<User> getUserById(@PathVariable int userid);
 
 	@PutMapping("/users/{userid}")
-	public String updateUser(@RequestBody UserDto userDto, @PathVariable int userid);
+	public ResponseEntity<User> updateUser(@RequestBody UserDto userDto, @PathVariable int userid);
 
 	@DeleteMapping("/users/{userid}")
 	public String deleteUserById(@PathVariable int userid);
