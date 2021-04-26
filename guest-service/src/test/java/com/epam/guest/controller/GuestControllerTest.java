@@ -38,18 +38,19 @@ class GuestControllerTest {
 	@MockBean
 	private GuestService guestServiceClass;
 
+	private UserDto userDto;
+
 	@BeforeEach
 	void beforeEach() {
 		userUtility = new UserUtility();
+		userDto = new UserDto();
+		userDto.setStatus(true);
+		userDto.setCreditCardDto(new ArrayList<>());
+		userDto.setProfileDto(new ProfileDto());
 	}
 
 	@Test
 	void addUserTest() throws Exception {
-		UserDto userDto = new UserDto();
-		userDto.setStatus(true);
-		userDto.setCreditCardDto(new ArrayList<>());
-		userDto.setProfileDto(new ProfileDto());
-
 		String userDtoJson = objectMapper.writeValueAsString(userDto);
 
 		Mockito.when(guestServiceClass.addUser(userDto)).thenReturn(userUtility.convertUserDtoToUser(userDto));
@@ -60,11 +61,6 @@ class GuestControllerTest {
 
 	@Test
 	void getUserByIdTest() throws Exception {
-
-		UserDto userDto = new UserDto();
-		userDto.setStatus(true);
-		userDto.setCreditCardDto(new ArrayList<>());
-		userDto.setProfileDto(new ProfileDto());
 
 		Mockito.when(guestServiceClass.getUserById(ArgumentMatchers.anyInt()))
 				.thenReturn(userUtility.convertUserDtoToUser(userDto));
@@ -91,16 +87,13 @@ class GuestControllerTest {
 	@Test
 	void updateUserTest() throws Exception {
 
-		UserDto userDto = new UserDto();
-		userDto.setStatus(true);
 		String userDtoJson = objectMapper.writeValueAsString(userDto);
 
 		Mockito.when(guestServiceClass.updateUser(ArgumentMatchers.any(UserDto.class), ArgumentMatchers.anyInt()))
-				.thenReturn("Dinesh");
+				.thenReturn(userUtility.convertUserDtoToUser(userDto));
 
-		mockMvc.perform(
-				MockMvcRequestBuilders.put("/v1/api/users/1").contentType(MediaType.APPLICATION_JSON).content(userDtoJson))
-				.andExpect(MockMvcResultMatchers.status().isOk());
+		mockMvc.perform(MockMvcRequestBuilders.put("/v1/api/users/1").contentType(MediaType.APPLICATION_JSON)
+				.content(userDtoJson)).andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@Test
