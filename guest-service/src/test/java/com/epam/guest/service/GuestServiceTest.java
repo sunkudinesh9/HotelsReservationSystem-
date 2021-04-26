@@ -32,7 +32,7 @@ class GuestServiceTest {
 	private GuestRepository guestRepository;
 
 	@InjectMocks
-	private GuestService guestService;
+	private GuestServiceImpl guestService;
 
 	private UserUtility userUtility;
 	private User user;
@@ -47,9 +47,9 @@ class GuestServiceTest {
 
 		List<CreditCardDto> creditCards = new ArrayList<>();
 		creditCards.add(new CreditCardDto(1234567890L, "12/23", "Dinesh", "Visa"));
-		userDto.setCreditCardDto(creditCards);
-		userDto.setProfileDto(new ProfileDto());
-		user = userUtility.convertUserDtoToUser(userDto);
+		userDto.setCreditCards(creditCards);
+		userDto.setProfile(new ProfileDto());
+		user = userUtility.convert(userDto);
 
 	}
 
@@ -70,11 +70,11 @@ class GuestServiceTest {
 
 		List<CreditCardDto> creditCards = new ArrayList<>();
 		creditCards.add(new CreditCardDto(1234567890L, "12/23", "Dinesh", "Visa"));
-		userDto.setCreditCardDto(creditCards);
-		userDto.setProfileDto(new ProfileDto());
+		userDto.setCreditCards(creditCards);
+		userDto.setProfile(new ProfileDto());
 
 		List<User> users = new ArrayList<>();
-		users.add(userUtility.convertUserDtoToUser(userDto));
+		users.add(userUtility.convert(userDto));
 
 		Mockito.when(guestRepository.findByStatus(true)).thenReturn(users);
 
@@ -86,7 +86,7 @@ class GuestServiceTest {
 
 	@Test
 	void getUserById() {
-		User user = userUtility.convertUserDtoToUser(userDto);
+		User user = userUtility.convert(userDto);
 		Optional<User> optionalUser = Optional.of(user);
 		Mockito.when(guestRepository.findById(ArgumentMatchers.anyInt())).thenReturn(optionalUser);
 

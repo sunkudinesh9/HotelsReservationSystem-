@@ -36,7 +36,7 @@ class GuestControllerTest {
 	private UserUtility userUtility;
 
 	@MockBean
-	private GuestService guestServiceClass;
+	private GuestService guestService;
 
 	private UserDto userDto;
 
@@ -45,15 +45,15 @@ class GuestControllerTest {
 		userUtility = new UserUtility();
 		userDto = new UserDto();
 		userDto.setStatus(true);
-		userDto.setCreditCardDto(new ArrayList<>());
-		userDto.setProfileDto(new ProfileDto());
+		userDto.setCreditCards(new ArrayList<>());
+		userDto.setProfile(new ProfileDto());
 	}
 
 	@Test
 	void addUserTest() throws Exception {
 		String userDtoJson = objectMapper.writeValueAsString(userDto);
 
-		Mockito.when(guestServiceClass.addUser(userDto)).thenReturn(userUtility.convertUserDtoToUser(userDto));
+		Mockito.when(guestService.addUser(userDto)).thenReturn(userUtility.convert(userDto));
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/v1/api/users").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(userDtoJson)).andExpect(MockMvcResultMatchers.status().isCreated());
@@ -62,8 +62,8 @@ class GuestControllerTest {
 	@Test
 	void getUserByIdTest() throws Exception {
 
-		Mockito.when(guestServiceClass.getUserById(ArgumentMatchers.anyInt()))
-				.thenReturn(userUtility.convertUserDtoToUser(userDto));
+		Mockito.when(guestService.getUserById(ArgumentMatchers.anyInt()))
+				.thenReturn(userUtility.convert(userDto));
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/v1/api/users/1")).andExpect(MockMvcResultMatchers.status().isOk());
 	}
@@ -73,13 +73,13 @@ class GuestControllerTest {
 
 		UserDto userDto = new UserDto();
 		userDto.setStatus(true);
-		userDto.setCreditCardDto(new ArrayList<>());
-		userDto.setProfileDto(new ProfileDto());
+		userDto.setCreditCards(new ArrayList<>());
+		userDto.setProfile(new ProfileDto());
 
 		List<User> users = new ArrayList<>();
-		users.add(userUtility.convertUserDtoToUser(userDto));
+		users.add(userUtility.convert(userDto));
 
-		Mockito.when(guestServiceClass.getUsers()).thenReturn(users);
+		Mockito.when(guestService.getUsers()).thenReturn(users);
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/v1/api/users")).andExpect(MockMvcResultMatchers.status().isOk());
 	}
@@ -89,8 +89,8 @@ class GuestControllerTest {
 
 		String userDtoJson = objectMapper.writeValueAsString(userDto);
 
-		Mockito.when(guestServiceClass.updateUser(ArgumentMatchers.any(UserDto.class), ArgumentMatchers.anyInt()))
-				.thenReturn(userUtility.convertUserDtoToUser(userDto));
+		Mockito.when(guestService.updateUser(ArgumentMatchers.any(UserDto.class), ArgumentMatchers.anyInt()))
+				.thenReturn(userUtility.convert(userDto));
 
 		mockMvc.perform(MockMvcRequestBuilders.put("/v1/api/users/1").contentType(MediaType.APPLICATION_JSON)
 				.content(userDtoJson)).andExpect(MockMvcResultMatchers.status().isOk());
@@ -99,7 +99,7 @@ class GuestControllerTest {
 	@Test
 	void deleteUser() throws Exception {
 
-		Mockito.when(guestServiceClass.deleteUser(ArgumentMatchers.anyInt())).thenReturn("Deleted");
+		Mockito.when(guestService.deleteUser(ArgumentMatchers.anyInt())).thenReturn("Deleted");
 
 		mockMvc.perform(MockMvcRequestBuilders.delete("/v1/api/users/1"))
 				.andExpect(MockMvcResultMatchers.status().isOk());
