@@ -16,7 +16,7 @@ public interface GuestService {
 	public User updateUser(UserDto userDto, int userId);
 
 	public String deleteUser(int userId);
-		
 
+	public User getUserByUserName(String username);
 
 }
