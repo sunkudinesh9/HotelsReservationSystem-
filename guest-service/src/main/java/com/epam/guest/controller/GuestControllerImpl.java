@@ -31,6 +31,7 @@ public class GuestControllerImpl implements GuestController {
 
 	@Override
 	public ResponseEntity<List<User>> getUsers() {
+		log.info("Getting the user");
 		return new ResponseEntity<>(guestService.getUsers(), HttpStatus.OK);
 	}
 
