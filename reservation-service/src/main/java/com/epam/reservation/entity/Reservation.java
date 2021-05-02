@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.epam.reservation.model.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.googlecode.jmapper.annotations.JMap;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,27 +22,35 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReservationDetails {
+public class Reservation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@Column(name = "USER_ID")
 	private int userId;
+	@JMap
 	@Column(name = "HOTEL_ID")
 	private int hotelId;
+	@JMap
 	@Column(name = "PARTY_MIX")
 	private int partyMix;
+	@JMap
 	@Column(name = "CHECK_IN_DATE")
-	private Date checkInDate;
+	private String checkInDate;
+	@JMap
 	@Column(name = "CHECK_OUT_DATE")
-	private int checkOutDate;
+	private String checkOutDate;
+	@JMap
 	@Column(name = "TOTAL_COST")
 	private float totalCost;
+	@JMap
 	@Column(name = "BOOKING_STATUS")
 	private String bookingStatus;
+	@JMap
 	@Column(name = "PAYMENT_ID")
 	private long paymentId;
+	@JMap
 	@Column(name = "IS_ACTIVE")
-	private boolean isActive;
+	private Boolean isActive;
 
 }
