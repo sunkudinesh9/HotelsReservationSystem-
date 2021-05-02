@@ -58,4 +58,13 @@ public class HotelServiceImpl implements HotelService{
 		return hotel;
 	}
 
+	@Override
+	public List<Hotel> getHotelsByName(String name) {
+		List<Hotel> hotels = hotelRepository.findByHotelName(name);
+		if (hotels.isEmpty()) {
+			throw new HotelNotFoundException("Hotel not found.");
+		}
+		return hotels;
+	}
+
 }

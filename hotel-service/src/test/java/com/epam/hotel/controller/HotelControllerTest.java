@@ -64,7 +64,7 @@ class HotelControllerTest {
 	}
 
 	@Test
-	void getHotelsTest() throws Exception {
+	void getHotelByIdTest() throws Exception {
 		Mockito.when(hotelService.getHotel(ArgumentMatchers.anyInt()))
 		.thenReturn(hotelUtility.convert(hotelDto));
 
@@ -73,7 +73,18 @@ class HotelControllerTest {
 	}
 
 	@Test
-	void getHotelByIdTest() throws Exception{
+	void getHotelsByNameTest() throws Exception{
+
+		List<Hotel> hotels = new ArrayList<>();
+		hotels.add(hotelUtility.convert(hotelDto));
+		
+		Mockito.when(hotelService.getHotelsByName(ArgumentMatchers.anyString())).thenReturn(hotels);
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/v1/api/hotels/name/Taj")).andExpect(MockMvcResultMatchers.status().isOk());
+	}
+	
+	@Test
+	void getHotelsTest() throws Exception{
 
 		List<Hotel> hotels = new ArrayList<>();
 		hotels.add(hotelUtility.convert(hotelDto));
