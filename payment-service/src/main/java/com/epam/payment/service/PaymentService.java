@@ -1,17 +1,13 @@
 package com.epam.payment.service;
 
-import com.epam.payment.model.Payment;
 
-public class PaymentService {
+import com.epam.payment.entity.Payment;
+import com.epam.payment.model.PaymentDto;
 
-	public Payment addPayment(Payment payment) {
-		// TODO Auto-generated method stub
-		return payment;
-	}
+public interface PaymentService {
 
-	public Payment getPaymentByReservationId(int anyInt) {
-		// TODO Auto-generated method stub
-		return new Payment();
-	}
+	public Payment addPayment(PaymentDto paymentDto) ;
+
+	public Payment getPaymentByReservationId(int anyInt);
 
 }

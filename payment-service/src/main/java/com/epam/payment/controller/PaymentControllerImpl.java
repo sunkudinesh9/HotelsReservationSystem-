@@ -1,6 +1,13 @@
 package com.epam.payment.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.epam.payment.entity.Payment;
+import com.epam.payment.model.PaymentDto;
+import com.epam.payment.service.PaymentService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -8,17 +15,22 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class PaymentControllerImpl implements PaymentController {
 
+	@Autowired
+	private PaymentService paymentService;
+	
+	
 	@Override
-	public String addPayment() {
+	public ResponseEntity<Payment> addPayment(PaymentDto paymentDto) {
 		log.info("Adding Payment");
-		return "payment Done";
+		Payment payment = paymentService.addPayment(paymentDto);
+		return new ResponseEntity<>(payment, HttpStatus.CREATED);
 	}
 
+	
 	@Override
-	public String getPaymentDetails(int reservationId) {
-		return "payment details"+reservationId;
+	public ResponseEntity<Payment> getPaymentDetailsById(int reservationId) {
+		Payment payment = paymentService.getPaymentByReservationId(reservationId);
+		return new ResponseEntity<>(payment, HttpStatus.OK);
 	}
 	
-	
-
 }
