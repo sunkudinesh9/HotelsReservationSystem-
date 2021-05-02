@@ -34,7 +34,7 @@ class ReservationServiceTest {
 	private ReservationUtility reservationUtility;
 	private Reservation reservation;
 	private ReservationDto reservationDto;
-	
+
 	@BeforeEach
 	void setup() {
 		MockitoAnnotations.openMocks(this);
@@ -56,11 +56,11 @@ class ReservationServiceTest {
 		reservationDto.setUserName("test");
 		reservation = reservationUtility.convert(reservationDto);
 	}
-	
+
 	@Test
 	void addReservationTest() {
 		Mockito.when(reservationRepository.save(reservation)).thenReturn(reservation);
-		Reservation reservationEntity = reservationService.addReservation(reservationDto);
+		Reservation reservationEntity = reservationService.addReservation(reservationDto).getBody().getData();
 		Assertions.assertAll(() -> assertNotNull(reservationEntity),
 				() -> assertEquals(reservationEntity.getBookingStatus(), reservationDto.getBookingStatus()));
 	}
@@ -74,7 +74,7 @@ class ReservationServiceTest {
 		Assertions.assertNotNull(actualReservations);
 		Assertions.assertTrue(actualReservations.size() > 0);
 	}
-	
+
 	@Test
 	void getReservationByIdTest() {
 		Optional<Reservation> optionalReservation = Optional.of(reservation);
@@ -83,7 +83,6 @@ class ReservationServiceTest {
 		Assertions.assertAll(() -> assertNotNull(actualReservation),
 				() -> assertEquals(actualReservation.getBookingStatus(), reservationDto.getBookingStatus()));
 	}
-	
 
 	@Test
 	void cancelReservationTest() {
@@ -93,8 +92,7 @@ class ReservationServiceTest {
 		reservationEntity.setBookingStatus("Cancelld");
 		Mockito.when(reservationRepository.save(reservationEntity)).thenReturn(reservationEntity);
 		Reservation actualReservation = reservationService.cancelReservation(reservationDto, 1);
-		Assertions.assertEquals(reservationEntity.getBookingStatus(),
-				actualReservation.getBookingStatus());
+		Assertions.assertEquals(reservationEntity.getBookingStatus(), actualReservation.getBookingStatus());
 	}
-	
+
 }
