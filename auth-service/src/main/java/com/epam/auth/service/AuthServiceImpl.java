@@ -14,8 +14,10 @@ import com.epam.auth.utility.GuestFeignClient;
 import com.epam.auth.utility.JwtUtility;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class AuthServiceImpl implements AuthService {
 
 	@Autowired
@@ -27,8 +29,9 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	@CircuitBreaker(name = "guest-service", fallbackMethod = "loginFallback")
 	public ResponseEntity<ApiResponse<String>> login(LoginDetails loginDetails) {
-
+		log.info("Sending the get call to the guest service to get the user details");
 		User user = guestFeignClient.getUserByUserName(loginDetails.getUserName()).getBody().getData();
+		log.info("User detials has retrieved ");
 		String userName = null;
 		if (user != null) {
 			if (!user.getPassword().equals(loginDetails.getPassword())) {
