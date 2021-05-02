@@ -1,23 +1,22 @@
 package com.epam.reservation.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import com.epam.reservation.model.Reservation;
+import org.springframework.http.ResponseEntity;
 
-public class ReservationService {
+import com.epam.reservation.entity.Reservation;
+import com.epam.reservation.exception.ReservationNotFoundException;
+import com.epam.reservation.model.ApiResponse;
+import com.epam.reservation.model.ReservationDto;
 
-	public Reservation addReservation(Reservation reservation) {
-		return reservation;
-	}
+public interface ReservationService {
 
-	public Reservation getReservationDetailsById(int anyInt) {
-		return new Reservation();
-	}
+	public ResponseEntity<ApiResponse<Reservation>> addReservation(ReservationDto reservation);
 
-	public List<Reservation> getAllReservations() {
-		return Collections.emptyList();
-	}
+	public Reservation getReservationDetailsById(int anyInt) throws ReservationNotFoundException;
+
+	public List<Reservation> getAllReservations();
+	
+	public Reservation cancelReservation(ReservationDto reservation,int anyInt);
 
 }
