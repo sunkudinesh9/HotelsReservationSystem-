@@ -50,11 +50,9 @@ public class HotelControllerImpl implements HotelController {
 	}
 
 	@Override
-	public ApiResponse<List<Hotel>> getHotelByName(String name) {
+	public ApiResponse<Hotel> getHotelByName(String name) {
 		return new ApiResponse<>(hotelService.getHotelsByName(name),
 				new Date(),SUCCESS);
 	}
-
-	
 
 }

@@ -78,7 +78,7 @@ class HotelControllerTest {
 		List<Hotel> hotels = new ArrayList<>();
 		hotels.add(hotelUtility.convert(hotelDto));
 		
-		Mockito.when(hotelService.getHotelsByName(ArgumentMatchers.anyString())).thenReturn(hotels);
+		Mockito.when(hotelService.getHotelsByName(ArgumentMatchers.anyString())).thenReturn(hotelUtility.convert(hotelDto));
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/v1/api/hotels/name/Taj")).andExpect(MockMvcResultMatchers.status().isOk());
 	}

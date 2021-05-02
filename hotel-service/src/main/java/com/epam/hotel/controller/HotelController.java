@@ -28,7 +28,7 @@ public interface HotelController {
 	public ApiResponse<Hotel> getHotelById(@PathVariable int hotelId);
 	
 	@GetMapping("/hotels/name/{name}")
-	public ApiResponse<List<Hotel>> getHotelByName(@PathVariable String name);
+	public ApiResponse<Hotel> getHotelByName(@PathVariable String name);
 
 	@PutMapping("/hotels/{hotelId}")
 	public  ApiResponse<Hotel> updateHotel(@RequestBody HotelDto hotelDto, @PathVariable int hotelId);

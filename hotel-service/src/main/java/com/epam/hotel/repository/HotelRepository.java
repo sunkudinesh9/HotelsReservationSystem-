@@ -10,6 +10,6 @@ import com.epam.hotel.entity.Hotel;
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 
-	public List<Hotel> findByHotelName(String hotelName);
+	public Hotel findByHotelName(String hotelName);
 
 }
