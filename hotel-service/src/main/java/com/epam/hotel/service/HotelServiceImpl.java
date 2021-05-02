@@ -15,14 +15,11 @@ import com.epam.hotel.util.HotelUtility;
 public class HotelServiceImpl implements HotelService{
 
 	@Autowired
-	HotelRepository hotelRepository;
-
-	@Autowired
-	HotelUtility hotelUtil;
+	private HotelRepository hotelRepository;
 
 	@Override
 	public Hotel addHotel(HotelDto hotelDto) {
-		Hotel hotel = hotelUtil.convert(hotelDto);
+		Hotel hotel = new HotelUtility().convert(hotelDto);
 		return hotelRepository.save(hotel);
 	}
 
@@ -42,7 +39,7 @@ public class HotelServiceImpl implements HotelService{
 
 	@Override
 	public Hotel updateHotel(HotelDto hotelDto, int hotelId) {
-		Hotel updatedHotel = hotelUtil.convert(hotelDto);
+		Hotel updatedHotel = new HotelUtility().convert(hotelDto);
 		Hotel existingHotel = getHotel(hotelId);
 		existingHotel.setHotelAddress(updatedHotel.getHotelAddress());
 		existingHotel.setRooms(updatedHotel.getRooms());
