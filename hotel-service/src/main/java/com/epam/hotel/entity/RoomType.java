@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.googlecode.jmapper.annotations.JMap;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,12 +22,20 @@ public class RoomType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
 	@Column(name = "ROOM_TYPE")
+	@JMap
 	private String roomName;
 	@Column(name = "RENT_PER_DAY")
+	@JMap
+	
 	private float rentPerDay;
 	@Column(name = "ROOM_CAPACITY")
+	@JMap
+	
 	private int roomCapacity;
 	@Column(name = "IS_ACTIVE")
-	private boolean isActive;
+	@JMap
+	
+	private Boolean isActive;
 }

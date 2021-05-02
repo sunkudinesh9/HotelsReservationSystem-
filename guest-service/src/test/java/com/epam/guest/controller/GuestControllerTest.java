@@ -62,8 +62,7 @@ class GuestControllerTest {
 	@Test
 	void getUserByIdTest() throws Exception {
 
-		Mockito.when(guestService.getUserById(ArgumentMatchers.anyInt()))
-				.thenReturn(userUtility.convert(userDto));
+		Mockito.when(guestService.getUserById(ArgumentMatchers.anyInt())).thenReturn(userUtility.convert(userDto));
 
 		mockMvc.perform(MockMvcRequestBuilders.get("/v1/api/users/1")).andExpect(MockMvcResultMatchers.status().isOk());
 	}

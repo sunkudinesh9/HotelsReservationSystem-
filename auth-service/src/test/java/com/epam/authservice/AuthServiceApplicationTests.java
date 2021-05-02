@@ -1,10 +1,10 @@
-package com.epam.hotel;
+package com.epam.authservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HotelApplicationTests {
+class AuthServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

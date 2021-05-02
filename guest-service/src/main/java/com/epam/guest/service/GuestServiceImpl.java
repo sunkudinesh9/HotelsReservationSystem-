@@ -14,7 +14,7 @@ import com.epam.guest.repository.GuestRepository;
 import com.epam.guest.utility.UserUtility;
 
 @Service
-public class GuestServiceImpl implements GuestService{
+public class GuestServiceImpl implements GuestService {
 
 	@Autowired
 	private GuestRepository guestRepository;
@@ -51,6 +51,16 @@ public class GuestServiceImpl implements GuestService{
 
 	public String deleteUser(int userId) {// return deleted/updated User
 		guestRepository.deleteById(userId);
-		return "deleted";
+		return "User" + userId + "has updated";
 	}
+
+	@Override
+	public User getUserByUserName(String username) {
+		Optional<User> optionalUser = guestRepository.findByUserName(username);
+		if (!optionalUser.isPresent()) {
+			throw new GuestNotFoundException("Unble to find the User");
+		}
+		return optionalUser.get();
+	}
+
 }

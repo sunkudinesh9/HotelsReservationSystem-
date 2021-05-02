@@ -44,4 +44,12 @@ public class User {
 	private List<CreditCard> creditCards = new ArrayList<>();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<StayHistory> stayHistory = new ArrayList<>();
+	@Column(name = "USER_NAME")
+	@NotNull
+	@JMap
+	private String userName;
+	@Column(name = "PASSWORD")
+	@NotNull
+	@JMap
+	private String password;
 }

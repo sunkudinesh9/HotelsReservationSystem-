@@ -12,22 +12,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.epam.guest.entity.User;
+import com.epam.guest.model.ApiResponse;
 import com.epam.guest.model.UserDto;
 
 @RequestMapping("/v1/api")
 public interface GuestController {
 	@PostMapping("/users")
-	public ResponseEntity<User> addUser(@RequestBody UserDto userDto);
+	public ResponseEntity<ApiResponse<User>> addUser(@RequestBody UserDto userDto);
 
 	@GetMapping("/users")
-	public List<User> getUsers();
+	public ResponseEntity<List<User>> getUsers();
 
 	@GetMapping("/users/{userid}")
-	public ResponseEntity<User> getUserById(@PathVariable int userid);
+	public ResponseEntity<ApiResponse<User>> getUserById(@PathVariable int userid);
 
 	@PutMapping("/users/{userid}")
-	public ResponseEntity<User> updateUser(@RequestBody UserDto userDto, @PathVariable int userid);
+	public ResponseEntity<ApiResponse<User>> updateUser(@RequestBody UserDto userDto, @PathVariable int userid);
 
 	@DeleteMapping("/users/{userid}")
-	public String deleteUserById(@PathVariable int userid);
+	public ResponseEntity<ApiResponse<User>> deleteUserById(@PathVariable int userid);
+
+	@GetMapping("/users/username/{username}")
+	public ResponseEntity<ApiResponse<User>> getUserByUserName(@PathVariable String username);
+
 }
