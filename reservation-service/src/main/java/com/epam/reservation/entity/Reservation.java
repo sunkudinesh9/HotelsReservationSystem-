@@ -28,7 +28,6 @@ public class Reservation {
 	private int id;
 	@Column(name = "USER_ID")
 	private int userId;
-	@JMap
 	@Column(name = "HOTEL_ID")
 	private int hotelId;
 	@JMap

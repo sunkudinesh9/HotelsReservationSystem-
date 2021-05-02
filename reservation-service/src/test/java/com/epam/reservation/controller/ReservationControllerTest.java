@@ -53,7 +53,7 @@ class ReservationControllerTest {
 		// Date checkoutDate = Date.valueOf(checkout);
 		reservationDto.setCheckInDate(checkin);
 		reservationDto.setCheckOutDate(checkout);
-		reservationDto.setHotelId(123);
+		reservationDto.setHotelName("ABC");
 		reservationDto.setPartyMix(4);
 		reservationDto.setPaymentId(111);
 		reservationDto.setTotalCost(10000);

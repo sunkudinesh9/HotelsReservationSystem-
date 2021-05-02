@@ -17,6 +17,6 @@ public interface HotelService {
 
 	public Hotel deleteHotel(int hotelId);
 
-	public List<Hotel> getHotelsByName(String name);
+	public Hotel getHotelsByName(String name);
 
 }
