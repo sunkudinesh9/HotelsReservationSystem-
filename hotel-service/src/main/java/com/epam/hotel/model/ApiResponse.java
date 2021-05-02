@@ -1,6 +1,6 @@
 package com.epam.hotel.model;
 
-import org.springframework.http.HttpStatus;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ApiResponse<T> {
 	private T data;
-	private HttpStatus httpStatus;
+	private Date date;
 	private String message;
 
 }
