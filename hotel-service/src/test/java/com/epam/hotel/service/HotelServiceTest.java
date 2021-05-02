@@ -90,8 +90,8 @@ class HotelServiceTest {
 	void getHotelByNameTest() {
 		ArrayList<Hotel> hotels = new ArrayList<Hotel>();
 		hotels.add(hotel);
-		when(hotelRepository.findByHotelName(ArgumentMatchers.anyString())).thenReturn(hotels);
-		assertEquals("The Taj", hotelService.getHotelsByName("The Taj").get(0).getHotelName());
+		when(hotelRepository.findByHotelName(ArgumentMatchers.anyString())).thenReturn(hotelUtility.convert(hotelDto));
+		assertEquals("The Taj", hotelService.getHotelsByName("The Taj").getHotelName());
 	} 
 
 	@Test
