@@ -11,7 +11,7 @@ public class ReservationDto {
 	private int id;
 	private Boolean isActive;
 	private String userName;
-	private int hotelId;
+	private String hotelName;
 	private int partyMix;
 	private String checkInDate;
 	private String checkOutDate;
