@@ -24,7 +24,7 @@ public class GuestControllerImpl implements GuestController {
 
 	@Override
 	public ResponseEntity<ApiResponse<User>> addUser(UserDto userDto) {
-		log.info("Adding the user");
+		log.info("Entired into the " + GuestControllerImpl.class.getName() + "addUser");
 		User user = guestService.addUser(userDto);
 		return new ResponseEntity<>(new ApiResponse<>(user, new Date(), "User created "), HttpStatus.CREATED);
 	}
@@ -37,25 +37,31 @@ public class GuestControllerImpl implements GuestController {
 
 	@Override
 	public ResponseEntity<ApiResponse<User>> getUserById(int userid) {
+		log.info("Entired into the " + GuestControllerImpl.class.getName() + "getUserById");
 		User user = guestService.getUserById(userid);
+		log.info("User has retrieved by the userid" + userid);
 		return new ResponseEntity<>(new ApiResponse<>(user, new Date(), "User has retrieved"), HttpStatus.OK);
 	}
 
 	@Override
 	public ResponseEntity<ApiResponse<User>> updateUser(UserDto userDto, int userid) {
+		log.info("Entired into the " + GuestControllerImpl.class.getName() + "updateUser");
 		User user = guestService.updateUser(userDto, userid);
+		log.info("User has retrieved by the userid" + userid);
 		return new ResponseEntity<>(new ApiResponse<>(user, new Date(), "User" + userid + "has updated"),
 				HttpStatus.OK);
 	}
 
 	@Override
 	public ResponseEntity<ApiResponse<User>> deleteUserById(int userid) {
+		log.info("Entired into the " + GuestControllerImpl.class.getName() + "deleteUserById" + userid);
 		return new ResponseEntity<>(new ApiResponse<>(null, new Date(), guestService.deleteUser(userid)),
 				HttpStatus.OK);
 	}
 
 	@Override
 	public ResponseEntity<ApiResponse<User>> getUserByUserName(String username) {
+		log.info("Entired into the " + GuestControllerImpl.class.getName() + "getUserByUserName");
 		User user = guestService.getUserByUserName(username);
 		return new ResponseEntity<>(new ApiResponse<>(user, new Date(), "User with " + username + " has retrieved"),
 				HttpStatus.OK);

@@ -13,8 +13,10 @@ import com.epam.gateway.model.LoginDetails;
 import com.epam.gateway.model.User;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class GatewayServiceImpl implements GatewayService {
 
 	@Autowired
@@ -23,6 +25,7 @@ public class GatewayServiceImpl implements GatewayService {
 	@Override
 	@CircuitBreaker(name = "guest-service", fallbackMethod = "loginFallback")
 	public ResponseEntity<ApiResponse<String>> login(LoginDetails loginDetails) {
+		log.info("sending the get call to the http://localhost:8083/v1/api/login");
 		@SuppressWarnings("unchecked")
 		ApiResponse<String> apiResponse = restTemplate
 				.postForEntity("http://localhost:8083/v1/api/login", loginDetails, ApiResponse.class).getBody();
@@ -30,6 +33,7 @@ public class GatewayServiceImpl implements GatewayService {
 	}
 
 	public ResponseEntity<ApiResponse<String>> loginFallback(LoginDetails loginDetails, Exception e) {
+		log.info("Entired into the loginFallback");
 		return new ResponseEntity<>(new ApiResponse<>(null, new Date(), e.getMessage()),
 				HttpStatus.SERVICE_UNAVAILABLE);
 
@@ -37,6 +41,7 @@ public class GatewayServiceImpl implements GatewayService {
 
 	@Override
 	public ResponseEntity<ApiResponse<User>> signUp(User userDto) {
+		log.info("sending the post call to the http://localhost:8083/v1/api/signup");
 		@SuppressWarnings("unchecked")
 		ApiResponse<User> apiResponse = restTemplate
 				.postForEntity("http://localhost:8083/v1/api/signup", userDto, ApiResponse.class).getBody();

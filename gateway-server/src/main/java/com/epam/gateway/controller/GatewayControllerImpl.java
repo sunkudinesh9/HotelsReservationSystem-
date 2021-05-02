@@ -12,7 +12,10 @@ import com.epam.gateway.model.LoginDetails;
 import com.epam.gateway.model.User;
 import com.epam.gateway.service.GatewayService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
 public class GatewayControllerImpl implements GatewayController {
 
 	@Autowired
@@ -20,17 +23,19 @@ public class GatewayControllerImpl implements GatewayController {
 
 	@Override
 	public ResponseEntity<ApiResponse<String>> login(LoginDetails loginDetails) {
+		log.info("Entired into the " + GatewayControllerImpl.class.getName() + "login Method");
 		return gatewayService.login(loginDetails);
 	}
 
 	public ResponseEntity<ApiResponse<String>> loginFallback(LoginDetails loginDetails, Exception e) {
-
+		log.info("Entired into the loginFallback Mrthod" + GatewayControllerImpl.class.getName());
 		return new ResponseEntity<>(new ApiResponse<>("guest-service is down", new Date(), e.getMessage()),
 				HttpStatus.SERVICE_UNAVAILABLE);
 	}
 
 	@Override
 	public ResponseEntity<ApiResponse<User>> signUp(User user) {
+		log.info("Entired into the " + GatewayControllerImpl.class.getName() + "signUp");
 		return gatewayService.signUp(user);
 	}
 
