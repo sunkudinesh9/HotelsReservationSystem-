@@ -17,6 +17,7 @@ public class ReservationDto {
 	private String checkOutDate;
 	private float totalCost;
 	private String bookingStatus;
-	private long paymentId;
-	
+	private PaymentDto payment;
+	private String roomType;
+
 }

@@ -3,7 +3,6 @@ package com.epam.payment.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 class PaymentControllerTest {
-	
+
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -31,34 +30,26 @@ class PaymentControllerTest {
 
 	@MockBean
 	private PaymentService paymentService;
-	
+
 	private PaymentUtility paymentUtility;
-	
+
 	private PaymentDto paymentDto;
-	
+
 	@BeforeEach
 	void beforeEach() {
 		paymentUtility = new PaymentUtility();
 		paymentDto = new PaymentDto();
 		paymentDto.setId(111111);
 		paymentDto.setModeOfPayment("Credit Card");
-		paymentDto.setReservationId(1);
 		paymentDto.setStatus("Success");
 	}
-	
+
 	@Test
 	void addPaymentTest() throws Exception {
 		String paymentData = objectMapper.writeValueAsString(paymentDto);
 		Mockito.when(paymentService.addPayment(paymentDto)).thenReturn(paymentUtility.convert(paymentDto));
 		mockMvc.perform(MockMvcRequestBuilders.post("/v1/api/payments").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(paymentData)).andExpect(MockMvcResultMatchers.status().isCreated());
-	}
-	
-	
-	@Test
-	void getPaymentDetailsTest() throws Exception {
-		Mockito.when(paymentService.getPaymentByReservationId(ArgumentMatchers.anyInt())).thenReturn(paymentUtility.convert(paymentDto));
-		mockMvc.perform(MockMvcRequestBuilders.get("/v1/api/payments/1")).andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 }

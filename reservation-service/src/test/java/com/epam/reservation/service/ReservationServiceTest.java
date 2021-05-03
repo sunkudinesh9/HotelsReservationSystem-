@@ -51,7 +51,7 @@ class ReservationServiceTest {
 		reservationDto.setCheckOutDate(checkout);
 		reservationDto.setHotelName("ABC");
 		reservationDto.setPartyMix(4);
-		reservationDto.setPaymentId(111);
+//		reservationDto.setPaymentId(111);
 		reservationDto.setTotalCost(10000);
 		reservationDto.setUserName("test");
 		reservation = reservationUtility.convert(reservationDto);

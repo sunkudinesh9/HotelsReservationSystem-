@@ -27,9 +27,6 @@ public class Payment {
 	@Column(name = "MODE_OF_PAYMENT")
 	private String modeOfPayment;
 	@JMap
-	@Column(name = "RESERVATION_ID")
-	private int reservationId;
-	@JMap
 	@Column(name = "STATUS")
 	private String status;
 }

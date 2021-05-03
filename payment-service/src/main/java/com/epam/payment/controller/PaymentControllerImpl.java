@@ -17,20 +17,11 @@ public class PaymentControllerImpl implements PaymentController {
 
 	@Autowired
 	private PaymentService paymentService;
-	
-	
+
 	@Override
 	public ResponseEntity<Payment> addPayment(PaymentDto paymentDto) {
 		log.info("Adding Payment");
 		Payment payment = paymentService.addPayment(paymentDto);
 		return new ResponseEntity<>(payment, HttpStatus.CREATED);
 	}
-
-	
-	@Override
-	public ResponseEntity<Payment> getPaymentDetailsById(int reservationId) {
-		Payment payment = paymentService.getPaymentByReservationId(reservationId);
-		return new ResponseEntity<>(payment, HttpStatus.OK);
-	}
-	
 }
