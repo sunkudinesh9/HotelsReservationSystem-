@@ -70,11 +70,6 @@ class GuestControllerTest {
 	@Test
 	void getUserTest() throws Exception {
 
-		UserDto userDto = new UserDto();
-		userDto.setStatus(true);
-		userDto.setCreditCards(new ArrayList<>());
-		userDto.setProfile(new ProfileDto());
-
 		List<User> users = new ArrayList<>();
 		users.add(userUtility.convert(userDto));
 
@@ -96,7 +91,7 @@ class GuestControllerTest {
 	}
 
 	@Test
-	void deleteUser() throws Exception {
+	void deleteUserTest() throws Exception {
 
 		Mockito.when(guestService.deleteUser(ArgumentMatchers.anyInt())).thenReturn("Deleted");
 
@@ -104,4 +99,10 @@ class GuestControllerTest {
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
+	void getUserByUserNameTest() throws Exception {
+		Mockito.when(guestService.getUserByUserName(ArgumentMatchers.anyString()))
+				.thenReturn(userUtility.convert(userDto));
+		mockMvc.perform(MockMvcRequestBuilders.get("/v1/api/users/username/dinesh"))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
 }

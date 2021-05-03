@@ -45,11 +45,11 @@ public class Reservation {
 	@JMap
 	@Column(name = "BOOKING_STATUS")
 	private String bookingStatus;
-	@JMap
 	@Column(name = "PAYMENT_ID")
 	private long paymentId;
 	@JMap
 	@Column(name = "IS_ACTIVE")
 	private Boolean isActive;
-
+	@Column(name = "ROOM_NUMBER")
+	private int roomNumber;
 }
