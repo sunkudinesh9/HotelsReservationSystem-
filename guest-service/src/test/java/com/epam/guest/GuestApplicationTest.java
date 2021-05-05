@@ -11,10 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.epam.guest.dto.CreditCardDto;
+import com.epam.guest.dto.ProfileDto;
+import com.epam.guest.dto.UserDto;
 import com.epam.guest.entity.User;
-import com.epam.guest.model.CreditCardDto;
-import com.epam.guest.model.ProfileDto;
-import com.epam.guest.model.UserDto;
 
 @SpringBootTest
 class GuestApplicationTest {
@@ -31,9 +31,9 @@ class GuestApplicationTest {
 		userDto.setUserName("Sunkudinesh9");
 		userDto.setPassword("test");
 		List<CreditCardDto> creditCards = new ArrayList<>();
-		creditCards.add(new CreditCardDto(1234567890, "12/24", "Sunku Dinesh Kumar", "Visa"));
+		creditCards.add(new CreditCardDto(1,1234567890, "12/24", "Sunku Dinesh Kumar", "Visa"));
 		userDto.setCreditCards(creditCards);
-		userDto.setProfile(new ProfileDto("Dinesh kumar", "Sunku", "sunku.dinesh9@gmail.com", 9176060361L,
+		userDto.setProfile(new ProfileDto(1,"Dinesh kumar", "Sunku", "sunku.dinesh9@gmail.com", 9176060361L,
 				"Gandhi katta", "Tadipatri", "Andhra Pradesh", 515411, "India"));
 	}
 

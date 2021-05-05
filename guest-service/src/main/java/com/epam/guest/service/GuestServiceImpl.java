@@ -6,12 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.epam.guest.dto.UserDto;
 import com.epam.guest.entity.CreditCard;
 import com.epam.guest.entity.User;
 import com.epam.guest.exception.GuestNotFoundException;
-import com.epam.guest.model.UserDto;
+import com.epam.guest.mapper.UserMapperImpl;
 import com.epam.guest.repository.GuestRepository;
-import com.epam.guest.utility.UserUtility;
 
 @Service
 public class GuestServiceImpl implements GuestService {
@@ -20,7 +20,7 @@ public class GuestServiceImpl implements GuestService {
 	private GuestRepository guestRepository;
 
 	public User addUser(UserDto userDto) {
-		return guestRepository.save(new UserUtility().convert(userDto));
+		return guestRepository.save(new UserMapperImpl().convert(userDto));
 	}
 
 	public List<User> getUsers() {
@@ -36,7 +36,7 @@ public class GuestServiceImpl implements GuestService {
 	}
 
 	public User updateUser(UserDto userDto, int userId) {
-		User userEntiry = new UserUtility().convert(userDto);
+		User userEntiry = new UserMapperImpl().convert(userDto);
 		User user = getUserById(userId);
 		user.setProfile(userEntiry.getProfile());
 		user.setStatus(userEntiry.getStatus());
