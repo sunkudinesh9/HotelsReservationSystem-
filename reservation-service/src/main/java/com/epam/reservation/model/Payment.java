@@ -1,13 +1,13 @@
 package com.epam.reservation.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
-@NoArgsConstructor
-public class PaymentDto {
+public class Payment {
 
 	private int id;
 	private String modeOfPayment;

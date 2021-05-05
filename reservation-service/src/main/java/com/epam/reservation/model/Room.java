@@ -1,25 +1,12 @@
 package com.epam.reservation.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import com.googlecode.jmapper.annotations.JMap;
-
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class Room {
 	
 	private int id;
@@ -27,6 +14,6 @@ public class Room {
 	private String roomStatus;
 	private Boolean isActive;
 	private RoomType roomType;
-	private Hotel hotel;
+	
 
 }

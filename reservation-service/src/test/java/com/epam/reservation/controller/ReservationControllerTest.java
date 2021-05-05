@@ -58,6 +58,7 @@ class ReservationControllerTest {
 //		reservationDto.setPaymentId(111);
 		reservationDto.setTotalCost(10000);
 		reservationDto.setUserName("test");
+		reservationDto.setRoomType("KING BED");
 	}
 
 	@Test
@@ -68,7 +69,7 @@ class ReservationControllerTest {
 				new ResponseEntity<>(new ApiResponse<>(res, new Date(), "reservation created "), HttpStatus.CREATED));
 		mockMvc.perform(MockMvcRequestBuilders.post("/v1/api/reservations")
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(ReservationData))
-				.andExpect(MockMvcResultMatchers.status().isCreated());
+				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@Test
