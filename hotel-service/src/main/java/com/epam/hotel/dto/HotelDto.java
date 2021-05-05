@@ -1,18 +1,29 @@
-package com.epam.hotel.model;
+package com.epam.hotel.dto;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.googlecode.jmapper.annotations.JMap;
 
-@Data
-@AllArgsConstructor
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
 @NoArgsConstructor
 public class HotelDto {
+	@JMap
 	private int id;
+	
+	@JMap
 	private String hotelName;
+	
+	@JMap
 	private HotelAddressDto hotelAddress;
+	
+	@JMap
 	private Boolean isActive;
+	
+	@JMap
 	private List<RoomDto> rooms;
 }

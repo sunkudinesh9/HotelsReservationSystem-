@@ -1,15 +1,18 @@
-package com.epam.hotel.model;
+package com.epam.hotel.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class ApiResponse<T> {
+	
 	private T data;
-	private Date date;
+	
+	private LocalDate date;
+	
 	private String message;
 
 }

@@ -17,16 +17,19 @@ import com.googlecode.jmapper.annotations.JMap;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "HOTEL")
-@Data
-@AllArgsConstructor
+@Setter
+@Getter
 @NoArgsConstructor
 public class Hotel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JMap
 	private int id;
 	
 	@Column(name = "HOTEL_NAME")
