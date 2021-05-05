@@ -3,7 +3,7 @@ package com.epam.hotel.service;
 import java.util.List;
 
 import com.epam.hotel.entity.Hotel;
-import com.epam.hotel.model.HotelDto;
+import com.epam.hotel.dto.HotelDto;
 
 public interface HotelService {
 
@@ -11,7 +11,7 @@ public interface HotelService {
 
 	public List<Hotel> getHotels();
 
-	public Hotel getHotel(int hotelId);
+	public Hotel getHotelById(int hotelId);
 
 	public Hotel updateHotel(HotelDto hotelDto, int hotelId);
 
