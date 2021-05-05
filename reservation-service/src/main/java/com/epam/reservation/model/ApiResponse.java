@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ApiResponse<T> {
+	
 	private T data;
 	private Date date;
 	private String message;

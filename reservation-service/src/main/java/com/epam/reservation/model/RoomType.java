@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class RoomType {
+	
 	private int id;
 	private String roomName;
 	private float rentPerDay;

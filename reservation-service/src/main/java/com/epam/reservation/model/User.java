@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class User {
+	
 	private int id;
 	private Boolean status;
 	private Profile profile;

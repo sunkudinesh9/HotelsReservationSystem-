@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.epam.reservation.dto.ReservationDto;
 import com.epam.reservation.entity.Reservation;
 import com.epam.reservation.exception.ReservationNotFoundException;
 import com.epam.reservation.model.ApiResponse;
-import com.epam.reservation.model.ReservationDto;
 
 public interface ReservationService {
 

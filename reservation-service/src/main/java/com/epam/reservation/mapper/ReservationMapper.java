@@ -1,15 +1,15 @@
-package com.epam.reservation.utility;
+package com.epam.reservation.mapper;
 
 
+import com.epam.reservation.dto.ReservationDto;
 import com.epam.reservation.entity.Reservation;
-import com.epam.reservation.model.ReservationDto;
 import com.googlecode.jmapper.JMapper;
 import com.googlecode.jmapper.api.JMapperAPI;
 
-public class ReservationUtility implements Converter{
+public class ReservationMapper implements Mapper{
 	JMapper<Reservation,ReservationDto> jMapper;
 
-	public ReservationUtility() {
+	public ReservationMapper() {
 		JMapperAPI api = new JMapperAPI()
 				.add(JMapperAPI.mappedClass(Reservation.class));
 		

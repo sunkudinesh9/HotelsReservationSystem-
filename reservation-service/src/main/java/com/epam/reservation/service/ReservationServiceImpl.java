@@ -9,19 +9,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.epam.reservation.dto.ReservationDto;
 import com.epam.reservation.entity.Reservation;
 import com.epam.reservation.exception.ReservationNotFoundException;
+import com.epam.reservation.feing.client.GuestFeignClient;
+import com.epam.reservation.feing.client.HotelFeignClient;
+import com.epam.reservation.feing.client.PaymentFeignClient;
+import com.epam.reservation.mapper.ReservationMapper;
 import com.epam.reservation.model.ApiResponse;
 import com.epam.reservation.model.Hotel;
 import com.epam.reservation.model.Payment;
-import com.epam.reservation.model.ReservationDto;
 import com.epam.reservation.model.Room;
 import com.epam.reservation.model.User;
 import com.epam.reservation.repository.ReservationRepository;
-import com.epam.reservation.utility.GuestFeignClient;
-import com.epam.reservation.utility.HotelFeignClient;
-import com.epam.reservation.utility.PaymentFeignClient;
-import com.epam.reservation.utility.ReservationUtility;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +48,7 @@ public class ReservationServiceImpl implements ReservationService {
 		User user = getGuestDetails(reservationDto);
 		Hotel hotel = getHotelDetails(reservationDto);
 		Payment payment = getPaymentDetials(reservationDto.getPayment()).getBody();
-		reservation = new ReservationUtility().convert(reservationDto);
+		reservation = new ReservationMapper().convert(reservationDto);
 		if (user != null)
 			reservation.setUserId(user.getId());
 		if (hotel != null) {
@@ -99,7 +99,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	public Reservation cancelReservation(ReservationDto reservationDto, int reservationId) {
-		Reservation reservationEntity = new ReservationUtility().convert(reservationDto);
+		Reservation reservationEntity = new ReservationMapper().convert(reservationDto);
 		Reservation reservation = getReservationDetailsById(reservationId);
 		reservation.setBookingStatus(reservationEntity.getBookingStatus());
 		reservation.setIsActive(reservationEntity.getIsActive());

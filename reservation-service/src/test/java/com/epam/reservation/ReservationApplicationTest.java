@@ -1,7 +1,5 @@
 package com.epam.reservation;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 
-import com.epam.reservation.entity.Reservation;
-import com.epam.reservation.model.ApiResponse;
+import com.epam.reservation.dto.ReservationDto;
 import com.epam.reservation.model.Payment;
-import com.epam.reservation.model.ReservationDto;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 
