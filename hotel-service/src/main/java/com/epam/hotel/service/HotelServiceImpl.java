@@ -6,21 +6,24 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.epam.hotel.dto.HotelDto;
 import com.epam.hotel.entity.Hotel;
 import com.epam.hotel.exception.HotelNotFoundException;
-import com.epam.hotel.model.HotelDto;
+import com.epam.hotel.mapper.HotelMapperImpl;
 import com.epam.hotel.repository.HotelRepository;
-import com.epam.hotel.util.HotelUtility;
 @Service
 public class HotelServiceImpl implements HotelService{
 
 	@Autowired
 	private HotelRepository hotelRepository;
+	
+	
 
 	@Override
 	public Hotel addHotel(HotelDto hotelDto) {
-		Hotel hotel = new HotelUtility().convert(hotelDto);
-		return hotelRepository.save(hotel);
+		Hotel hotel = new HotelMapperImpl().convert(hotelDto);
+		Hotel newHotel = hotelRepository.save(hotel);
+		return newHotel;
 	}
 
 	@Override
@@ -29,7 +32,7 @@ public class HotelServiceImpl implements HotelService{
 	}
 
 	@Override
-	public Hotel getHotel(int hotelId) {
+	public Hotel getHotelById(int hotelId) {
 		Optional<Hotel> optionalHotel = hotelRepository.findById(hotelId);
 		if (!optionalHotel.isPresent()) {
 			throw new HotelNotFoundException("Hotel not found.");
@@ -39,8 +42,8 @@ public class HotelServiceImpl implements HotelService{
 
 	@Override
 	public Hotel updateHotel(HotelDto hotelDto, int hotelId) {
-		Hotel updatedHotel = new HotelUtility().convert(hotelDto);
-		Hotel existingHotel = getHotel(hotelId);
+		Hotel updatedHotel = new HotelMapperImpl().convert(hotelDto);
+		Hotel existingHotel = getHotelById(hotelId);
 		existingHotel.setHotelAddress(updatedHotel.getHotelAddress());
 		existingHotel.setRooms(updatedHotel.getRooms());
 		existingHotel.setIsActive(true);
@@ -50,16 +53,16 @@ public class HotelServiceImpl implements HotelService{
 
 	@Override
 	public Hotel deleteHotel(int hotelId) {
-		Hotel hotel = getHotel(hotelId);
+		Hotel hotel = getHotelById(hotelId);
 		hotelRepository.deleteById(hotelId);
 		return hotel;
 	}
 
 	@Override
 	public Hotel getHotelsByName(String name) {
-		Hotel hotels = hotelRepository.findByHotelName(name);
-		if (hotels!=null) {
-			return hotels;
+		Hotel hotel = hotelRepository.findByHotelName(name);
+		if (hotel != null) {
+			return hotel;
 			
 		}else {
 			throw new HotelNotFoundException("Hotel not found.");

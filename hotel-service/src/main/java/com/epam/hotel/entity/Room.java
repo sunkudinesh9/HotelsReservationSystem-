@@ -13,18 +13,19 @@ import javax.persistence.Table;
 
 import com.googlecode.jmapper.annotations.JMap;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "ROOM")
-@Data
-@AllArgsConstructor
+@Setter
+@Getter
 @NoArgsConstructor
 public class Room {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JMap
 	private int id;
 	
 	@Column(name = "ROOM_NUMBER")
