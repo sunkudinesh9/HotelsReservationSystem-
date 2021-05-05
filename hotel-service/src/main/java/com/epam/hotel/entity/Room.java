@@ -13,8 +13,6 @@ import javax.persistence.Table;
 
 import com.googlecode.jmapper.annotations.JMap;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

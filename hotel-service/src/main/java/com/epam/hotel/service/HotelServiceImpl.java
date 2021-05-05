@@ -6,12 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.epam.hotel.dto.HotelDto;
 import com.epam.hotel.entity.Hotel;
 import com.epam.hotel.exception.HotelNotFoundException;
-import com.epam.hotel.dto.HotelDto;
-import com.epam.hotel.repository.HotelRepository;
-import com.epam.hotel.mapper.HotelMapper;
 import com.epam.hotel.mapper.HotelMapperImpl;
+import com.epam.hotel.repository.HotelRepository;
 @Service
 public class HotelServiceImpl implements HotelService{
 

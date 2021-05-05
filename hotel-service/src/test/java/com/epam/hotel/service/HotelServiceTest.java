@@ -17,7 +17,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -39,12 +38,11 @@ class HotelServiceTest {
 
 	@InjectMocks
 	private HotelService hotelService = new HotelServiceImpl();
-	
-	@Mock
+
 	private HotelMapper hotelMapper;
-	
+
 	private Hotel hotel;
-	
+
 	private HotelDto hotelDto;
 
 	@BeforeEach
@@ -65,7 +63,7 @@ class HotelServiceTest {
 
 	@Test
 	void addHotelTest() {
-		when(hotelRepository.save(hotelMapper.convert(hotelDto))).thenReturn(hotel);
+		when(hotelRepository.save(ArgumentMatchers.any(Hotel.class))).thenReturn(hotel);
 		Hotel hotel = hotelService.addHotel(hotelDto);
 
 		Assertions.assertAll(() -> assertNotNull(hotel),
@@ -86,16 +84,16 @@ class HotelServiceTest {
 	void getHotelByIdTest() {
 		int id = 1;
 		when(hotelRepository.findById(ArgumentMatchers.anyInt())).thenReturn(Optional.ofNullable(hotel));
-		assertEquals("The Taj",hotelService.getHotelById(id).getHotelName());
+		assertEquals("The Taj", hotelService.getHotelById(id).getHotelName());
 	}
-	
+
 	@Test
 	void getHotelByNameTest() {
 		ArrayList<Hotel> hotels = new ArrayList<Hotel>();
 		hotels.add(hotel);
 		when(hotelRepository.findByHotelName(ArgumentMatchers.anyString())).thenReturn(hotelMapper.convert(hotelDto));
 		assertEquals("The Taj", hotelService.getHotelsByName("The Taj").getHotelName());
-	} 
+	}
 
 	@Test()
 	void HotelNotFoundExceptionTest() {
@@ -120,7 +118,7 @@ class HotelServiceTest {
 		Hotel actualHotel = hotelService.updateHotel(hotelDto, 1);
 		Assertions.assertEquals(existingHotel.getHotelName(), actualHotel.getHotelName());
 	}
-	
+
 	@Test
 	void deleteHotelTest() {
 		Optional<Hotel> optionalHotel = Optional.of(hotel);
@@ -129,7 +127,7 @@ class HotelServiceTest {
 		Hotel deleted = hotelService.deleteHotel(1);
 		Mockito.when(hotelRepository.save(deleted)).thenReturn(deleted);
 		Assertions.assertEquals(deleted.getHotelName(), hotel.getHotelName());
-		
+
 	}
 
 }
