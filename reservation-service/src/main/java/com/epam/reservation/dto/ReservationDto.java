@@ -1,4 +1,6 @@
-package com.epam.reservation.model;
+package com.epam.reservation.dto;
+
+import com.epam.reservation.model.Payment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationDto {
+	
 	private int id;
 	private Boolean isActive;
 	private String userName;

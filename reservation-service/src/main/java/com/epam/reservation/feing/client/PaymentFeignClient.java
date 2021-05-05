@@ -1,4 +1,4 @@
-package com.epam.reservation.utility;
+package com.epam.reservation.feing.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

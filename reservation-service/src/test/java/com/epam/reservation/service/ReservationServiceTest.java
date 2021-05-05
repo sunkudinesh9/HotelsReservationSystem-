@@ -18,23 +18,23 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.epam.reservation.dto.ReservationDto;
 import com.epam.reservation.entity.Reservation;
 import com.epam.reservation.exception.ReservationNotFoundException;
+import com.epam.reservation.feing.client.GuestFeignClient;
+import com.epam.reservation.feing.client.HotelFeignClient;
+import com.epam.reservation.feing.client.PaymentFeignClient;
+import com.epam.reservation.mapper.ReservationMapper;
 import com.epam.reservation.model.ApiResponse;
 import com.epam.reservation.model.CreditCard;
 import com.epam.reservation.model.Hotel;
 import com.epam.reservation.model.HotelAddress;
 import com.epam.reservation.model.Payment;
 import com.epam.reservation.model.Profile;
-import com.epam.reservation.model.ReservationDto;
 import com.epam.reservation.model.Room;
 import com.epam.reservation.model.RoomType;
 import com.epam.reservation.model.User;
 import com.epam.reservation.repository.ReservationRepository;
-import com.epam.reservation.utility.GuestFeignClient;
-import com.epam.reservation.utility.HotelFeignClient;
-import com.epam.reservation.utility.PaymentFeignClient;
-import com.epam.reservation.utility.ReservationUtility;
 
 class ReservationServiceTest {
 
@@ -51,14 +51,14 @@ class ReservationServiceTest {
 	@InjectMocks
 	private ReservationServiceImpl reservationService;
 
-	private ReservationUtility reservationUtility;
+	private ReservationMapper reservationMapper;
 	private Reservation reservation;
 	private ReservationDto reservationDto;
 
 	@BeforeEach
 	void setup() {
 		MockitoAnnotations.openMocks(this);
-		reservationUtility = new ReservationUtility();
+		reservationMapper = new ReservationMapper();
 		reservationDto = new ReservationDto();
 		reservationDto.setId(1);
 		reservationDto.setIsActive(true);
@@ -72,7 +72,7 @@ class ReservationServiceTest {
 		reservationDto.setTotalCost(10000);
 		reservationDto.setUserName("test");
 		reservationDto.setPayment(new Payment(1, "Credit card", "Success"));
-		reservation = reservationUtility.convert(reservationDto);
+		reservation = reservationMapper.convert(reservationDto);
 
 	}
 

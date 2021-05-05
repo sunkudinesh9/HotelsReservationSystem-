@@ -12,4 +12,5 @@ public class HotelAddress {
 	private String state;
 	private int pinCode;
 	private String country;
+	
 }

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.epam.reservation.dto.ReservationDto;
 import com.epam.reservation.entity.Reservation;
 import com.epam.reservation.model.ApiResponse;
-import com.epam.reservation.model.ReservationDto;
 
 @RequestMapping("/v1/api")
 public interface ReservationController {

@@ -4,12 +4,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.HttpStatus;
+
+import com.epam.reservation.dto.ReservationDto;
 import com.epam.reservation.entity.Reservation;
 import com.epam.reservation.model.ApiResponse;
-import com.epam.reservation.model.ReservationDto;
 import com.epam.reservation.service.ReservationService;
 
 import lombok.extern.slf4j.Slf4j;
