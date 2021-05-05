@@ -1,10 +1,12 @@
 package com.epam.reservation.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservationDto {
@@ -17,7 +19,7 @@ public class ReservationDto {
 	private String checkOutDate;
 	private float totalCost;
 	private String bookingStatus;
-	private PaymentDto payment;
+	private Payment payment;
 	private String roomType;
 
 }
