@@ -10,6 +10,7 @@ import org.springframework.web.context.request.WebRequest;
 
 @ControllerAdvice
 public class ResponseEntityExceptionHandler {
+	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Object> handleAllException(Exception ex, WebRequest request) {
 
