@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import com.epam.reservation.dto.ReservationDto;
@@ -41,6 +42,9 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private PaymentFeignClient paymentFeignClient;
 
+	@Autowired
+	private KafkaTemplate<String, Reservation> kakfaProducer;
+
 	@CircuitBreaker(name = "guest-service", fallbackMethod = "addReservationFallback")
 	public ResponseEntity<ApiResponse<Reservation>> addReservation(ReservationDto reservationDto) {
 		log.info("Entered" + getClass().getName());
@@ -63,9 +67,12 @@ public class ReservationServiceImpl implements ReservationService {
 		if (payment != null)
 			reservation.setPaymentId(payment.getId());
 
-		return new ResponseEntity<>(
+		ResponseEntity<ApiResponse<Reservation>> responseEntity = new ResponseEntity<>(
 				new ApiResponse<>(reservationRepository.save(reservation), new Date(), "reservation Created"),
 				HttpStatus.CREATED);
+		kakfaProducer.send("reservationtopic", user.getUserName(), responseEntity.getBody().getData());
+
+		return responseEntity;
 	}
 
 	public Hotel getHotelDetails(ReservationDto reservationDto) {
