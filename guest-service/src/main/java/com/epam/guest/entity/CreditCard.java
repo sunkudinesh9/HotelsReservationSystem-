@@ -13,35 +13,40 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.googlecode.jmapper.annotations.JMap;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "CREDITCARD")
-@Data
-@AllArgsConstructor
+@Table(name = "CREDIT_CARD")
+@Getter
+@Setter
 @NoArgsConstructor
 public class CreditCard {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@NotNull
 	@Column(name = "CARD_NUMBER")
 	@JMap
 	private long cardNumber;
+	
 	@NotNull
 	@Column(name = "EXPAIR_DATE")
 	@JMap
 	private String expiryDate;
+	
 	@NotNull
 	@Column(name = "CARD_HOLDER_NAME")
 	@JMap
 	private String cardHolder;
+	
 	@NotNull
 	@Column(name = "CARD_TYPE")
 	@JMap
 	private String cardType;
+	
 	@ManyToOne()
 	@JoinColumn(name = "USER_ID")
 	@JsonIgnore

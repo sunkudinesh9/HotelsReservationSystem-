@@ -18,13 +18,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.epam.guest.dto.CreditCardDto;
+import com.epam.guest.dto.ProfileDto;
+import com.epam.guest.dto.UserDto;
 import com.epam.guest.entity.User;
 import com.epam.guest.exception.GuestNotFoundException;
-import com.epam.guest.model.CreditCardDto;
-import com.epam.guest.model.ProfileDto;
-import com.epam.guest.model.UserDto;
+import com.epam.guest.mapper.UserMapperImpl;
 import com.epam.guest.repository.GuestRepository;
-import com.epam.guest.utility.UserUtility;
 
 class GuestServiceTest {
 
@@ -34,22 +34,22 @@ class GuestServiceTest {
 	@InjectMocks
 	private GuestServiceImpl guestService;
 
-	private UserUtility userUtility;
+	private UserMapperImpl userMapperImpl;
 	private User user;
 	private UserDto userDto;
 
 	@BeforeEach
 	void setup() {
 		MockitoAnnotations.openMocks(this);
-		userUtility = new UserUtility();
+		userMapperImpl = new UserMapperImpl();
 		userDto = new UserDto();
 		userDto.setStatus(true);
 
 		List<CreditCardDto> creditCards = new ArrayList<>();
-		creditCards.add(new CreditCardDto(1234567890L, "12/23", "Dinesh", "Visa"));
+		creditCards.add(new CreditCardDto(1,1234567890L, "12/23", "Dinesh", "Visa"));
 		userDto.setCreditCards(creditCards);
 		userDto.setProfile(new ProfileDto());
-		user = userUtility.convert(userDto);
+		user = userMapperImpl.convert(userDto);
 
 	}
 
@@ -69,12 +69,12 @@ class GuestServiceTest {
 		userDto.setStatus(true);
 
 		List<CreditCardDto> creditCards = new ArrayList<>();
-		creditCards.add(new CreditCardDto(1234567890L, "12/23", "Dinesh", "Visa"));
+		creditCards.add(new CreditCardDto(1,1234567890L, "12/23", "Dinesh", "Visa"));
 		userDto.setCreditCards(creditCards);
 		userDto.setProfile(new ProfileDto());
 
 		List<User> users = new ArrayList<>();
-		users.add(userUtility.convert(userDto));
+		users.add(userMapperImpl.convert(userDto));
 
 		Mockito.when(guestRepository.findByStatus(true)).thenReturn(users);
 
@@ -86,7 +86,7 @@ class GuestServiceTest {
 
 	@Test
 	void getUserById() {
-		User user = userUtility.convert(userDto);
+		User user = userMapperImpl.convert(userDto);
 		Optional<User> optionalUser = Optional.of(user);
 		Mockito.when(guestRepository.findById(ArgumentMatchers.anyInt())).thenReturn(optionalUser);
 

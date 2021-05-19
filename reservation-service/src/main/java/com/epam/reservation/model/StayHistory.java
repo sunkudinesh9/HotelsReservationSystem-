@@ -1,13 +1,12 @@
 package com.epam.reservation.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Getter
+@Setter
 public class StayHistory {
+	
 	private int id;
 	private int reservationID;
 	private User user;

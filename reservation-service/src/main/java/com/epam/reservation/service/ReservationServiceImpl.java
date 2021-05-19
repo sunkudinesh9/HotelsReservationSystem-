@@ -7,21 +7,22 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import com.epam.reservation.dto.ReservationDto;
 import com.epam.reservation.entity.Reservation;
 import com.epam.reservation.exception.ReservationNotFoundException;
+import com.epam.reservation.feing.client.GuestFeignClient;
+import com.epam.reservation.feing.client.HotelFeignClient;
+import com.epam.reservation.feing.client.PaymentFeignClient;
+import com.epam.reservation.mapper.ReservationMapper;
 import com.epam.reservation.model.ApiResponse;
 import com.epam.reservation.model.Hotel;
-import com.epam.reservation.model.PaymentDto;
-import com.epam.reservation.model.ReservationDto;
+import com.epam.reservation.model.Payment;
 import com.epam.reservation.model.Room;
 import com.epam.reservation.model.User;
 import com.epam.reservation.repository.ReservationRepository;
-import com.epam.reservation.utility.GuestFeignClient;
-import com.epam.reservation.utility.HotelFeignClient;
-import com.epam.reservation.utility.PaymentFeignClient;
-import com.epam.reservation.utility.ReservationUtility;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
@@ -41,14 +42,17 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private PaymentFeignClient paymentFeignClient;
 
+	@Autowired
+	private KafkaTemplate<String, Reservation> kakfaProducer;
+
 	@CircuitBreaker(name = "guest-service", fallbackMethod = "addReservationFallback")
 	public ResponseEntity<ApiResponse<Reservation>> addReservation(ReservationDto reservationDto) {
 		log.info("Entered" + getClass().getName());
 		Reservation reservation = null;
 		User user = getGuestDetails(reservationDto);
 		Hotel hotel = getHotelDetails(reservationDto);
-		PaymentDto payment = getPaymentDetials(reservationDto.getPayment()).getBody();
-		reservation = new ReservationUtility().convert(reservationDto);
+		Payment payment = getPaymentDetials(reservationDto.getPayment()).getBody();
+		reservation = new ReservationMapper().convert(reservationDto);
 		if (user != null)
 			reservation.setUserId(user.getId());
 		if (hotel != null) {
@@ -63,9 +67,12 @@ public class ReservationServiceImpl implements ReservationService {
 		if (payment != null)
 			reservation.setPaymentId(payment.getId());
 
-		return new ResponseEntity<>(
+		ResponseEntity<ApiResponse<Reservation>> responseEntity = new ResponseEntity<>(
 				new ApiResponse<>(reservationRepository.save(reservation), new Date(), "reservation Created"),
 				HttpStatus.CREATED);
+		kakfaProducer.send("reservationtopic", user.getUserName(), responseEntity.getBody().getData());
+
+		return responseEntity;
 	}
 
 	public Hotel getHotelDetails(ReservationDto reservationDto) {
@@ -82,7 +89,7 @@ public class ReservationServiceImpl implements ReservationService {
 				HttpStatus.SERVICE_UNAVAILABLE);
 	}
 
-	public ResponseEntity<PaymentDto> getPaymentDetials(PaymentDto payment) {
+	public ResponseEntity<Payment> getPaymentDetials(Payment payment) {
 		return paymentFeignClient.addPayment(payment);
 	}
 
@@ -99,7 +106,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	public Reservation cancelReservation(ReservationDto reservationDto, int reservationId) {
-		Reservation reservationEntity = new ReservationUtility().convert(reservationDto);
+		Reservation reservationEntity = new ReservationMapper().convert(reservationDto);
 		Reservation reservation = getReservationDetailsById(reservationId);
 		reservation.setBookingStatus(reservationEntity.getBookingStatus());
 		reservation.setIsActive(reservationEntity.getIsActive());

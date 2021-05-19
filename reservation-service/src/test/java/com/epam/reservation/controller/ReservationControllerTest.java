@@ -20,11 +20,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import com.epam.reservation.dto.ReservationDto;
 import com.epam.reservation.entity.Reservation;
+import com.epam.reservation.mapper.ReservationMapper;
 import com.epam.reservation.model.ApiResponse;
-import com.epam.reservation.model.ReservationDto;
 import com.epam.reservation.service.ReservationService;
-import com.epam.reservation.utility.ReservationUtility;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -35,14 +35,14 @@ class ReservationControllerTest {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	private ReservationUtility reservationUtility;
+	private ReservationMapper reservationMapper;
 	private ReservationDto reservationDto;
 	@MockBean
 	private ReservationService reservationService;
 
 	@BeforeEach
 	void beforeEach() {
-		reservationUtility = new ReservationUtility();
+		reservationMapper = new ReservationMapper();
 		reservationDto = new ReservationDto();
 		reservationDto.setId(1);
 		reservationDto.setIsActive(true);
@@ -58,23 +58,24 @@ class ReservationControllerTest {
 //		reservationDto.setPaymentId(111);
 		reservationDto.setTotalCost(10000);
 		reservationDto.setUserName("test");
+		reservationDto.setRoomType("KING BED");
 	}
 
 	@Test
 	void addReservationTest() throws Exception {
 		String ReservationData = objectMapper.writeValueAsString(reservationDto);
-		Reservation res = reservationUtility.convert(reservationDto);
+		Reservation res = reservationMapper.convert(reservationDto);
 		Mockito.when(reservationService.addReservation(reservationDto)).thenReturn(
 				new ResponseEntity<>(new ApiResponse<>(res, new Date(), "reservation created "), HttpStatus.CREATED));
 		mockMvc.perform(MockMvcRequestBuilders.post("/v1/api/reservations")
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(ReservationData))
-				.andExpect(MockMvcResultMatchers.status().isCreated());
+				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@Test
 	void getReservationDetailsTest() throws Exception {
 		Mockito.when(reservationService.getReservationDetailsById(ArgumentMatchers.anyInt()))
-				.thenReturn(reservationUtility.convert(reservationDto));
+				.thenReturn(reservationMapper.convert(reservationDto));
 		mockMvc.perform(MockMvcRequestBuilders.get("/v1/api/reservations/1"))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
@@ -82,7 +83,7 @@ class ReservationControllerTest {
 	@Test
 	void getAllReservationsTest() throws Exception {
 		List<Reservation> listOfReservations = new ArrayList<>();
-		listOfReservations.add(reservationUtility.convert(reservationDto));
+		listOfReservations.add(reservationMapper.convert(reservationDto));
 		Mockito.when(reservationService.getAllReservations()).thenReturn(listOfReservations);
 		mockMvc.perform(MockMvcRequestBuilders.get("/v1/api/reservations"))
 				.andExpect(MockMvcResultMatchers.status().isOk());
@@ -92,7 +93,7 @@ class ReservationControllerTest {
 	void cancelReservationTest() throws Exception {
 		String userDtoJson = objectMapper.writeValueAsString(reservationDto);
 		Mockito.when(reservationService.cancelReservation(ArgumentMatchers.any(ReservationDto.class),
-				ArgumentMatchers.anyInt())).thenReturn(reservationUtility.convert(reservationDto));
+				ArgumentMatchers.anyInt())).thenReturn(reservationMapper.convert(reservationDto));
 		mockMvc.perform(MockMvcRequestBuilders.put("/v1/api/reservations/1").contentType(MediaType.APPLICATION_JSON)
 				.content(userDtoJson)).andExpect(MockMvcResultMatchers.status().isOk());
 	}

@@ -2,15 +2,15 @@ package com.epam.reservation.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
 public class User {
+	
 	private int id;
 	private Boolean status;
 	private Profile profile;

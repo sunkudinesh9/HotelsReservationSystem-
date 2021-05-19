@@ -1,14 +1,11 @@
 package com.epam.reservation.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
-@NoArgsConstructor
 
 public class Profile {
+	
 	private int id;
 	private String firstName;
 	private String lastName;
@@ -19,4 +16,5 @@ public class Profile {
 	private String state;
 	private int pinCode;
 	private String country;
+	
 }

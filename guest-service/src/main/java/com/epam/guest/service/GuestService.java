@@ -2,8 +2,8 @@ package com.epam.guest.service;
 
 import java.util.List;
 
+import com.epam.guest.dto.UserDto;
 import com.epam.guest.entity.User;
-import com.epam.guest.model.UserDto;
 
 public interface GuestService {
 
